@@ -1,0 +1,22 @@
+header {
+  grid-area: header;
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 320px;
+  min-height: 56px;
+  margin: 28px auto 0;
+}
+
+@media screen and (min-width: 768px) {
+  .header {
+    width: 650px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .header {
+    width: 880px;
+    min-height: 74px;
+    margin: 45px auto 0;
+  }
+}

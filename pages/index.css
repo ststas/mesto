@@ -2,7 +2,7 @@
 @import url(../vendor/normalize.css);
 /*PAGE & FONTS*/
 @import url(../blocks/page/page.css);
-@import url(../fonts/fonts.css);
+@import url(../vendor/fonts/fonts.css);
 /*HEADER*/
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__logo/header__logo.css);
@@ -17,10 +17,6 @@
 /*POP-UP*/
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/__container/popup__container.css);
-
-
-
-
 
 /*ELEMENTS & ELEMENT*/
 @import url(../blocks/elements/elements.css);
