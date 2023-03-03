@@ -1,0 +1,23 @@
+.footer {
+  grid-area: footer;
+  display: flex;
+  flex-direction: row;
+  width: 282px;
+  min-height: 14px;
+  margin: 48px auto 36px;
+}
+
+@media screen and (min-width: 768px) {
+  .footer {
+    width: 318px;
+    margin: 48px auto 36px 0;
+    
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .footer {
+    min-height: 18px;
+    margin: 66px auto 60px 0;
+  }
+}
