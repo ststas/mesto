@@ -10,7 +10,7 @@
 @media screen and (min-width: 768px) {
   .profile {
     flex-direction: row;
-    width: 650px;
+    width: 651px;
     min-height: 120px;
     margin: 40px auto 0;
   }

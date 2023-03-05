@@ -1,0 +1,11 @@
+.element__caption {
+  min-height: 24px;
+  margin: 25px 15px 31px 21px;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
