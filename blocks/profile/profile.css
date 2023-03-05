@@ -4,20 +4,11 @@
   flex-direction: column;
   align-items: center;
   margin: 42px 19px 0;
-  min-height: 286px;
 }
 
 @media screen and (min-width: 768px) {
   .profile {
     flex-direction: row;
-    width: 651px;
-    min-height: 120px;
     margin: 40px auto 0;
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .profile {
-    width: 880px;
   }
 }
