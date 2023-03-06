@@ -1,0 +1,19 @@
+.popup__field {
+  width: 238px;
+  height: 27px;
+  box-sizing: border-box;
+  border: none;
+  margin: 75px auto 0;
+  padding: 0;
+}
+
+.popup__field:last-of-type {
+  margin: 30px auto 0;
+}
+
+@media screen and (min-width: 768px) {
+  .popup__field {
+    width: 358px;
+    margin: 48px auto 0;
+  }
+}
