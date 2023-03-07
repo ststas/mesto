@@ -2,17 +2,14 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* align-items: center; */
+  align-items: center;
   position: relative;
-  width: 282px;
   margin: 26px 0 0;
   padding: 0;
 }
 
 @media screen and (min-width: 768px) {
     .profile__info {
-      padding-top: 3px;
-      width: 336px;
       margin: auto 0 auto 30px;
       align-items: start;
     }

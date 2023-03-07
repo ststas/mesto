@@ -1,19 +1,25 @@
 .popup__field {
-  width: 238px;
-  height: 27px;
+  margin: 70px 22px 0;
+  padding: 0;
   box-sizing: border-box;
   border: none;
-  margin: 75px auto 0;
-  padding: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 27px;
 }
 
 .popup__field:last-of-type {
-  margin: 30px auto 0;
+  margin: 29px 22px 0;
 }
 
 @media screen and (min-width: 768px) {
   .popup__field {
-    width: 358px;
-    margin: 48px auto 0;
+    margin: 45px 36px 0;
   }
+  .popup__field:last-of-type {
+    margin: 29px 36px 0;
+  }
+
 }
