@@ -3,7 +3,6 @@
   display: flex;
   flex-direction: row;
   width: 282px;
-  min-height: 14px;
   margin: 48px auto 36px;
 }
 
@@ -17,7 +16,6 @@
 
 @media screen and (min-width: 1024px) {
   .footer {
-    min-height: 18px;
     margin: 66px auto 60px 0;
   }
 }
