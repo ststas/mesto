@@ -1,36 +1,45 @@
 // определяем переменные для открытия/закрытия всплывающего окна и отправки формы
-let popup = document.querySelector('.popup');
-let editButton = document.querySelector('.profile__edit-button');
-let closeButton = document.querySelector('.popup__close-button');
-let submitButton = document.querySelector('.popup__submit-button');
+const popupElement = document.querySelector('.popup');
+const profileElement = document.querySelector('.profile');
+const profileEditButtonElement = profileElement.querySelector('.profile__edit-button');
+const popupCloseButtonElement = popupElement.querySelector('.popup__close-button');
+// const popupSubmitButtonElement = popupElement.querySelector('.popup__submit-button');
 
 // определяем перемененные для имени и профессии в профиле
-let profileName = document.querySelector('.profile__name');
-let profileOccupation = document.querySelector('.profile__occupation');
+let profileNameElement = profileElement.querySelector('.profile__name');
+let profileOccupationElement = profileElement.querySelector('.profile__occupation');
 // определяем перемененные для имени и профессии в полях редактирования всплывающего окна
-let formElement = document.querySelector('.popup__form')
-let popupName = document.querySelectorAll('.popup__field')[0];
-let popupOccupation = document.querySelectorAll('.popup__field')[1];
+const popupFormElement = popupElement.querySelector('.popup__form')
+let popupNameElement = popupElement.querySelectorAll('.popup__field')[0];
+let popupOccupationElement = popupElement.querySelectorAll('.popup__field')[1];
 
 //функции открытия и закрытия всплывающего окна 
-function popupOpen() {
-  popup.classList.add('popup_opened');
-  popupName.value = profileName.textContent;
-  popupOccupation.value = profileOccupation.textContent;
+function openPopup () {
+  popupElement.classList.add('popup_opened');
+  popupNameElement.value = profileNameElement.textContent;
+  popupOccupationElement.value = profileOccupationElement.textContent;
 }
-function popupClose() {
-  popup.classList.remove('popup_opened');
+function closePopup() {
+  popupElement.classList.remove('popup_opened');
+}
+function closePopupByClickOnOverlay(event) {
+  console.log(event.target, event.currentTarget);
+  if (event.target !== event.currentTarget) {
+    return;
+  }
+  closePopup();
 }
 
 //функция отправки данных из полей редактирования всплывающего окна в профиль
 function submitForm(evt) {
   evt.preventDefault();
-  profileName.textContent = popupName.value;
-  profileOccupation.textContent = popupOccupation.value;
-  popupClose();
+  profileNameElement.textContent = popupNameElement.value;
+  profileOccupationElement.textContent = popupOccupationElement.value;
+  closePopup();
 }
 
 // назначаем обработчики событий
-editButton.addEventListener('click', popupOpen);
-closeButton.addEventListener('click', popupClose);
-formElement.addEventListener('submit', submitForm);
+profileEditButtonElement.addEventListener('click', openPopup);
+popupCloseButtonElement.addEventListener('click', closePopup);
+popupFormElement.addEventListener('submit', submitForm);
+popupElement.addEventListener('click', closePopupByClickOnOverlay);
