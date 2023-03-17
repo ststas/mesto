@@ -23,8 +23,10 @@
         </div>
         <button type="button" class="profile__add-button"></button>
       </section>
+
       <section class="elements">
-        <article class="element">
+        
+        <!-- <article class="element">
           <img class="element__image" src="./images/karachaevsk.jpg" alt="фото заброшенной церкви">
           <div class="element__caption">
             <h2 class="element__title">Карачаевск</h2>
@@ -65,12 +67,15 @@
             <h2 class="element__title">Карачаево-Черкессия</h2>
             <button type="button" class="element__heart-button"></button>  
           </div>
-        </article>
+        </article> -->
+
       </section>
+
     </main>
     <footer class="footer">
       <p class="footer__copyright">© 2023 Mesto Russia</p>
     </footer>
+
     <section class="popup">
       <div class="popup__container">
         <button type="button" class="popup__close-button"></button>
@@ -81,7 +86,16 @@
           <button type="submit" class="popup__submit-button">Сохранить</button> 
         </form>  
       </div>
-    </section>    
+    </section>
+
+    <template class="element">
+      <img class="element__image" src="./images/karachaevsk.jpg" alt="изображение">
+      <div class="element__caption">
+        <h2 class="element__title">TEST</h2>
+        <button type="button" class="element__heart-button"></button>  
+      </div>
+    </template>
+    
   </div>
   <script src="./scripts/script.js"></script>
 </body>
