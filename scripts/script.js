@@ -27,35 +27,18 @@ const initialCards = [
   }
 ];
 
-//определяем переменные для заполнения карточек из массива
-// const cardElements = document.querySelector('.elements');
-// const cardElement = document.querySelector('.element');
+const cardElements = document.querySelector('.elements');
+const cardElement = document.querySelector('#card-template').content;
+console.log(cardElement);
 
-// const htmlElement = cardElement.cloneNode(true);
-// console.log(htmlElement);
-// debugger;
+function addCard (item) {
+  const newCardElement = cardElement.cloneNode(true);
+  const cardImageElement = newCardElement.querySelector('.element__image').src = item.link;
+  const cardTitleElement = newCardElement.querySelector('.element__title').textContent = item.name;
+  cardElements.append(newCardElement);
+} 
 
-// const imageElement = htmlElement.content.querySelector('.element__image');
-// console.log(imageElement);
-// cardElements.append(htmlElement.content);
-
-
-
-// initialCards.forEach(addInitialCards)
-
-// function addInitialCards (item) {
-//   const htmlElement = cardElement.cloneNode(true);
-//   // htmlElement.querySelector('.element__image').src = 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg';
-//   // htmlElement.querySelector('.element__title').textContent = 'ТЕКСТ';
-//   cardElements.append(htmlElement);
-// };
-// addInitialCards();
-
-
-
-
-
-
+initialCards.forEach(addCard);
 
 // определяем переменные для открытия/закрытия всплывающего окна и отправки формы
 const popupElement = document.querySelector('.popup');
