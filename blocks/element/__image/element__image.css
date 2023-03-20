@@ -5,5 +5,9 @@
   border-radius: 10px 10px 0 0;
   object-fit: cover;
   object-position: center center;
-  filter: brightness(85%);
+  filter: brightness(80%);
+}
+
+.element__image:hover {
+  cursor: pointer;
 }

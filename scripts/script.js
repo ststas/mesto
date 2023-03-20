@@ -28,10 +28,8 @@ const initialCards = [
 //определяем переменные для заполенения карточек
 const cardElements = document.querySelector('.elements');
 const cardElement = document.querySelector('#card-template').content;
-
 //выполняем автозаполненение карточек
 initialCards.forEach(addCard);
-
 //определяем функцию для автозаполенения карточек
 function addCard (item) {
   const newCardElement = cardElement.cloneNode(true);
@@ -40,7 +38,6 @@ function addCard (item) {
   newPlaceEventListeners(newCardElement);
   cardElements.append(newCardElement);
 } 
-
 // функция создания нового места
 function submitNewPlaceForm(event) {
   event.preventDefault();
@@ -54,18 +51,16 @@ function submitNewPlaceForm(event) {
   addNewPlace();
   closeNewPlacePopup();
 }
-
 //функция удаления нового места
 function deleteNewPlaceForm (event) {
-  newPlace = event.target.closest('.element');
+  let newPlace = event.target.closest('.element');
   newPlace.remove();
 }
 //функция like
 function newPlaceLike (event) {
-  newPlace = event.target.closest('.element__heart-button');
-  newPlace.classList.toggle('element__heart-button_active');
+  let newPlaceHeart = event.target.closest('.element__heart-button');
+  newPlaceHeart.classList.toggle('element__heart-button_active');
 }
-
 // определяем переменные для открытия/закрытия всплывающих окон редактирования профиля и создания нового места
 const profileElement = document.querySelector('.profile');
 const profileEditButtonElement = profileElement.querySelector('.profile__edit-button');
@@ -82,25 +77,23 @@ const newPlaceCloseButtonPopupElement = newPlacePopupElement.querySelector('.pop
 const newPlacePopupFormElement = newPlacePopupElement.querySelector('.popup__form')
 let newPlaceNamePopupElement = newPlacePopupElement.querySelectorAll('.popup__field')[0];
 let newPlaceLinkPopupElement = newPlacePopupElement.querySelectorAll('.popup__field')[1];
-
+const picturePopup = document.querySelector('#picture-popup');
+const picturePopupCloseButton = picturePopup.querySelector('.popup__close-button');
 //функции открытия и закрытия всплывающего окна редактирования профиля
 function openEditProfilePopup () {
   profilePopupElement.classList.add('popup_opened');
   profileNamePopupElement.value = profileNameElement.textContent;
   profileOccupationPopupElement.value = profileOccupationElement.textContent;
 }
-
 function closeEditProfilePopup() {
   profilePopupElement.classList.remove('popup_opened');
 }
-
 function closeEditProfilePopupByClickOnOverlay(event) {
   if (event.target !== event.currentTarget) {
     return;
   }
   closeEditProfilePopup();
 }
-
 //функция отправки данных из полей редактирования всплывающего окна в профиль
 function submitProfileForm(evt) {
   evt.preventDefault();
@@ -108,18 +101,24 @@ function submitProfileForm(evt) {
   profileOccupationElement.textContent = profileOccupationPopupElement.value;
   closeEditProfilePopup();
 }
-
 //функции открытия и закрытия всплывающего окна отправки нового места
 function openNewPlacePopup () {
   newPlacePopupElement.classList.add('popup_opened');
   newPlaceNamePopupElement.value = '';
   newPlaceLinkPopupElement.value = '';  
 }
-
 function closeNewPlacePopup () {
-  newPlacePopupElement.classList.remove('popup_opened');  
+  newPlacePopupElement.classList.remove('popup_opened');
 }
-
+function openPicturePopup (event) {
+  picturePopup.classList.add('popup_opened-picture');
+  const cardElement = event.target.closest('.element');
+  picturePopup.querySelector('.popup__image').src = cardElement.querySelector('.element__image').src;
+  picturePopup.querySelector('.popup__image-caption').textContent = cardElement.querySelector('.element__title').textContent;
+}
+function closePicturePopup () {
+  picturePopup.classList.remove('popup_opened-picture');
+}
 // назначаем обработчики событий
 profileEditButtonElement.addEventListener('click', openEditProfilePopup);
 profileAddButtonElement.addEventListener('click', openNewPlacePopup);
@@ -131,4 +130,6 @@ newPlacePopupFormElement.addEventListener('submit', submitNewPlaceForm);
 function newPlaceEventListeners (newCardElement) {
 newCardElement.querySelector('.element__delete-button').addEventListener('click', deleteNewPlaceForm)
 newCardElement.querySelector('.element__heart-button').addEventListener('click', newPlaceLike)
+newCardElement.querySelector('.element__image').addEventListener('click', openPicturePopup);
 }
+picturePopupCloseButton.addEventListener('click', closePicturePopup);
