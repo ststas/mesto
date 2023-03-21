@@ -26,7 +26,7 @@ const initialCards = [
   }
 ];
 //определяем переменные для заполенения карточек мест
-const cardElements = document.querySelector('.elements');
+const cardSectionElement = document.querySelector('.elements');
 const cardElement = document.querySelector('#card-template').content;
 // определяем переменные для открытия/закрытия/редактирования всплывающих окон профиля, нового места
 // и просмотра картинки
@@ -52,8 +52,8 @@ function addCard (item) {
   const newCardElement = cardElement.cloneNode(true);
   newCardElement.querySelector('.element__title').textContent = item.name;
   newCardElement.querySelector('.element__image').src = item.link;
-  newPlaceEventListeners(newCardElement);
-  cardElements.append(newCardElement);
+  addNewPlaceEventListeners(newCardElement);
+  cardSectionElement.append(newCardElement);
 }
 //выполняем автозаполненение карточек места
 initialCards.forEach(addCard);
@@ -79,20 +79,20 @@ function submitNewPlaceForm(event) {
     const newCardElement = cardElement.cloneNode(true);
     newCardElement.querySelector('.element__image').src = newPlaceLinkPopupElement.value;
     newCardElement.querySelector('.element__title').textContent = newPlaceNamePopupElement.value;
-    newPlaceEventListeners(newCardElement);
-    cardElements.prepend(newCardElement);
+    addNewPlaceEventListeners(newCardElement);
+    cardSectionElement.prepend(newCardElement);
     }   
   addNewPlace();
   closeNewPlacePopup();
 }
 //функция удаления карточки места
 function deleteNewPlaceForm (event) {
-  let newPlace = event.target.closest('.element');
+  const newPlace = event.target.closest('.element');
   newPlace.remove();
 }
 //функция like карточки места
 function newPlaceLike (event) {
-  let newPlaceHeart = event.target.closest('.element__heart-button');
+  const newPlaceHeart = event.target.closest('.element__heart-button');
   newPlaceHeart.classList.toggle('element__heart-button_active');
 }
 //функции открытия и закрытия всплывающего окна редактирования профиля
@@ -101,7 +101,7 @@ function openEditProfilePopup () {
   profileNamePopupElement.value = profileNameElement.textContent;
   profileOccupationPopupElement.value = profileOccupationElement.textContent;
 }
-function closeEditProfilePopup() {
+function closeEditProfilePopup () {
   profilePopupElement.classList.remove('popup_opened');
 }
 function closeEditProfilePopupByClickOnOverlay(event) {
@@ -142,7 +142,7 @@ profileAddButtonElement.addEventListener('click', openNewPlacePopup);
 newPlaceCloseButtonPopupElement.addEventListener('click', closeNewPlacePopup);
 newPlacePopupElement.addEventListener('click', closeNewPlacePopupByClickOnOverlay);
 newPlacePopupFormElement.addEventListener('submit', submitNewPlaceForm);
-function newPlaceEventListeners (newCardElement) {
+function addNewPlaceEventListeners (newCardElement) {
 newCardElement.querySelector('.element__delete-button').addEventListener('click', deleteNewPlaceForm)
 newCardElement.querySelector('.element__heart-button').addEventListener('click', newPlaceLike)
 newCardElement.querySelector('.element__image').addEventListener('click', openPicturePopup);

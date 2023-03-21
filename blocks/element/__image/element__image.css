@@ -5,7 +5,9 @@
   border-radius: 10px 10px 0 0;
   object-fit: cover;
   object-position: center center;
-  filter: brightness(80%);
+  /*свойство brigthness не указано в макете, но на картинках к требованию работы видно,
+  что фотографии затемнены, чтобы иконка "корзина" была различима на светлых участках фото*/
+  filter: brightness(80%); 
 }
 
 .element__image:hover {
