@@ -34,8 +34,8 @@
         <button type="button" class="popup__close-button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <form id="name-and-occupation" name="name-occupation" class="popup__form">    
-          <input type="text" form="name-and-occupation" name="profile-name" placeholder="Ваше имя" value="" class="popup__field">            
-          <input type="text" form="name-and-occupation" name="profile-occupation" placeholder="Ваша профессия" value="" class="popup__field">
+          <input type="text" form="name-and-occupation" name="profile-name" placeholder="Ваше имя" value="" class="popup__field popup__field_profile-name">            
+          <input type="text" form="name-and-occupation" name="profile-occupation" placeholder="Ваша профессия" value="" class="popup__field popup__field_profile-occupation">
           <button type="submit" class="popup__submit-button">Сохранить</button> 
         </form>  
       </div>
@@ -45,13 +45,13 @@
         <button type="button" class="popup__close-button"></button>
         <h2 class="popup__title">Новое место</h2>
         <form id="new-place" name="name-occupation" class="popup__form">    
-          <input type="text" form="new-place" name="new-place-name" placeholder="Название" value="" class="popup__field">            
-          <input type="text" form="new-place" name="new-place-link" placeholder="Ссылка на картинку" value="" class="popup__field">
+          <input type="text" form="new-place" name="new-place-name" placeholder="Название" value="" class="popup__field popup__field_newplace-name">            
+          <input type="text" form="new-place" name="new-place-link" placeholder="Ссылка на картинку" value="" class="popup__field popup__field_newplace-link">
           <button type="submit" class="popup__submit-button">Создать</button> 
         </form>  
       </div>
     </section>
-    <section class="popup" id="picture-popup">
+    <section class="popup popup_picture_background" id="picture-popup">
       <div class="popup__picture-container">
         <button type="button" class="popup__close-button"></button>
         <figure class="popup__figure">
@@ -61,16 +61,17 @@
       </div>
     </section>
     <template id="card-template">
-      <arcticle class="element">
+      <article class="element">
         <img class="element__image" src="#" alt="пользовательское изображение">
         <div class="element__caption">
           <h2 class="element__title"></h2>
           <button type="button" class="element__heart-button"></button>  
         </div>
         <button type="button" class="element__delete-button"></button>
-      </arcticle>
+      </article>
     </template>
   </div>
+  <script src="./scripts/initial-сards.js"></script>
   <script src="./scripts/script.js"></script>
 </body>
 </html>    
