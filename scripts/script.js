@@ -20,6 +20,8 @@ const newPlaceNamePopupElement = newPlacePopupElement.querySelector('.popup__fie
 const newPlaceLinkPopupElement = newPlacePopupElement.querySelector('.popup__field_newplace_link');
 const picturePopupElement = document.querySelector('#picture-popup');
 const picturePopupCloseButton = picturePopupElement.querySelector('.popup__close-button');
+const picturePopupImageElement = picturePopupElement.querySelector('.popup__image');
+const picturePopupImageCaptionElement = picturePopupElement.querySelector('.popup__image-caption');
 //определяем функцию для автозаполенения карточек мест
 function createCard (item) {
   const newCardElement = cardElement.cloneNode(true);
@@ -108,9 +110,11 @@ newCardElement.querySelector('.element__heart-button').addEventListener('click',
 newCardElement.querySelector('.element__image').addEventListener('click', function (event) {
   openPopup(picturePopupElement);
   const cardElement = event.target.closest('.element');
-  picturePopupElement.querySelector('.popup__image').src = cardElement.querySelector('.element__image').src;
-  picturePopupElement.querySelector('.popup__image').alt = cardElement.querySelector('.element__image').alt;
-  picturePopupElement.querySelector('.popup__image-caption').textContent = cardElement.querySelector('.element__title').textContent;
+  const cardElementImage = cardElement.querySelector('.element__image');
+  const cardElementTitle = cardElement.querySelector('.element__title');
+  picturePopupImageElement.src = cardElementImage.src;
+  picturePopupImageElement.alt = cardElementImage.alt;
+  picturePopupImageCaptionElement.textContent = cardElementTitle.textContent;
 });
 }
 picturePopupCloseButton.addEventListener('click', function () {closePopup(picturePopupElement)});
