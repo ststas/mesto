@@ -64,8 +64,7 @@ function submitNewPlaceForm(item) {
   item.link = newPlaceLinkPopupElement.value
   item.alt = 'пользовательское изображение';
   cardSectionElement.prepend(createCard(item));
-  newPlaceNamePopupElement.value = '';
-  newPlaceLinkPopupElement.value = '';
+  newPlacePopupFormElement.reset();
   newPlacePopupElement.classList.remove('popup_opened');
 }
 //функция удаления карточки места
