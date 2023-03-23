@@ -26,11 +26,10 @@ const picturePopupImageCaptionElement = picturePopupElement.querySelector('.popu
 function createCard (item) {
   const newCardElement = cardElement.cloneNode(true);
   const newCardNameElement = newCardElement.querySelector('.element__title');
-  const newCardLinkElement = newCardElement.querySelector('.element__image');
-  const newCardAltElement = newCardElement.querySelector('.element__image');
+  const newCardImageElement = newCardElement.querySelector('.element__image');
   newCardNameElement.textContent = item.name;
-  newCardLinkElement.src = item.link;
-  newCardAltElement.alt = item.name;
+  newCardImageElement.src = item.link;
+  newCardImageElement.alt = item.name;
   addNewPlaceEventListeners(newCardElement);
   return newCardElement;
 }
@@ -62,13 +61,13 @@ function closePicturePopupByClickOnOverlay (event) {
     closePopup(picturePopupElement)
   }
 }
-// функция создания новой карточки места
 function submitNewPlaceForm(event) {
   event.preventDefault();
-  event.name = newPlaceNamePopupElement.value;
-  event.link = newPlaceLinkPopupElement.value;
-  event.alt = newPlaceNamePopupElement.value;
-  cardSectionElement.prepend(createCard(event));
+  const newCard = {
+  name: newPlaceNamePopupElement.value,
+  link: newPlaceLinkPopupElement.value,
+  };
+  cardSectionElement.prepend(createCard(newCard));
   newPlacePopupFormElement.reset();
   closePopup(newPlacePopupElement);
 }
