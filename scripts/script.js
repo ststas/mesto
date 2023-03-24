@@ -1,6 +1,7 @@
 //определяем переменные для заполенения карточек мест
 const cardSectionElement = document.querySelector('.elements');
 const cardElement = document.querySelector('#card-template').content;
+console.log(cardElement);
 // определяем переменные для открытия/закрытия/редактирования всплывающих окон профиля, нового места
 // и просмотра картинки
 const profileElement = document.querySelector('.profile');
