@@ -34,8 +34,8 @@
         <button type="button" class="popup__close-button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <form id="name-and-occupation" name="name-occupation" class="popup__form">    
-          <input type="text" form="name-and-occupation" name="profile-name" placeholder="Ваше имя" value="" class="popup__field popup__field_profile_name">            
-          <input type="text" form="name-and-occupation" name="profile-occupation" placeholder="Ваша профессия" value="" class="popup__field popup__field_profile_occupation">
+          <input type="text" form="name-and-occupation" name="profile-name" placeholder="Ваше имя" value="" class="popup__field popup__field_profile_name" required minlength="2" maxlength="40">
+          <input type="text" form="name-and-occupation" name="profile-occupation" placeholder="Ваша профессия" value="" class="popup__field popup__field_profile_occupation" required minlength="2" maxlength="200">
           <button type="submit" class="popup__submit-button">Сохранить</button> 
         </form>  
       </div>
@@ -71,6 +71,7 @@
       </article>
     </template>
   </div>
+  <script src="./scripts/validate.js"></script>
   <script src="./scripts/initial-сards.js"></script>
   <script src="./scripts/script.js"></script>
 </body>

@@ -81,6 +81,16 @@ function addRemoveNewPlaceLike (event) {
   const newPlaceHeart = event.target.closest('.element__heart-button');
   newPlaceHeart.classList.toggle('element__heart-button_active');
 }
+
+// функция like карточки места + eventListener (для работы без навешивания eventListener на каждую карточку)
+// function addRemoveNewPlaceLike (event) {
+//   if(event.target.classList.contains('element__heart-button')){
+//     event.target.classList.toggle('element__heart-button_active');
+//     console.log(event.target);
+//   }
+// }
+// cardSectionElement.addEventListener('click', addRemoveNewPlaceLike)
+
 //функция отправки данных из полей редактирования всплывающего окна в профиль
 function submitProfileForm(event) {
   event.preventDefault();
