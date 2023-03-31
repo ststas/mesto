@@ -40,12 +40,6 @@ function addCard (item) {
 // выполняем автозаполнение первых шести карточек мест
 initialCards.forEach(addCard);
 //функции открытия и закрытия попапа
-const openPopup = function openPopup (popup) {
-  popup.classList.add('popup_opened');
-}
-const closePopup = function openClose (popup) {
-  popup.classList.remove('popup_opened');
-}
 function closeEditProfilePopupByClickOnOverlay (event) {
   if (event.target === event.currentTarget) {
     closePopup(profilePopupElement);
@@ -61,6 +55,24 @@ function closePicturePopupByClickOnOverlay (event) {
     closePopup(picturePopupElement)
   }
 }
+
+const closePopupByPressOnEsc = function (event) {
+  if(event.key === 'Escape') {
+    const popup = document.querySelector('.popup_opened')
+    closePopup(popup)
+  }
+}
+
+const openPopup = function (popup) {
+  popup.classList.add('popup_opened');
+  // document.addEventListener('keydown', closePopupByPressOnEsc);
+}
+const closePopup = function (popup) {
+  popup.classList.remove('popup_opened');
+  // document.removeEventListener('keydown', closePopupByPressOnEsc);
+}
+
+
 function submitNewPlaceForm(event) {
   event.preventDefault();
   const newCard = {
@@ -128,3 +140,10 @@ newCardElement.querySelector('.element__image').addEventListener('click', functi
 }
 picturePopupCloseButton.addEventListener('click', function () {closePopup(picturePopupElement)});
 picturePopupElement.addEventListener('click', closePicturePopupByClickOnOverlay);
+
+// profilePopupElement.addEventListener('keydown', function (event) {
+//   if(event.key === 'Escape') {
+//     console.log('Escape')
+//     closePopup(profilePopupElement)
+//   }
+// })
