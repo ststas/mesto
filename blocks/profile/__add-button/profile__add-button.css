@@ -7,6 +7,7 @@
   box-sizing: border-box;
   border: 2px solid #FFFFFF;
   border-radius: 2px;
+  outline: none;
   background-image: url(../../../images/add-button.svg);
   background-repeat: no-repeat;
   background-position: center;

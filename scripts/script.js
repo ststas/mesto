@@ -65,10 +65,6 @@ function closePopupByClickOnOverlay (event) {
   }
 }
 
-
-
-
-
 // function closeEditProfilePopupByClickOnOverlay (event) {
 //   if (event.target === event.currentTarget) {
 //     closePopup(profilePopupElement);
@@ -84,11 +80,6 @@ function closePopupByClickOnOverlay (event) {
 //     closePopup(picturePopupElement)
 //   }
 // }
-
-
-
-
-
 
 function submitNewPlaceForm(event) {
   event.preventDefault();
