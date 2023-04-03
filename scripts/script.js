@@ -64,23 +64,6 @@ function closePopupByClickOnOverlay (event) {
     closePopup(popupOpened);
   }
 }
-
-// function closeEditProfilePopupByClickOnOverlay (event) {
-//   if (event.target === event.currentTarget) {
-//     closePopup(profilePopupElement);
-//   }
-// }
-// function closeNewPlacePopupByClickOnOverlay (event) {
-//   if (event.target === event.currentTarget) {
-//     closePopup(newPlacePopupElement);
-//   }
-// }
-// function closePicturePopupByClickOnOverlay (event) {
-//   if (event.target === event.currentTarget) {
-//     closePopup(picturePopupElement)
-//   }
-// }
-
 function submitNewPlaceForm(event) {
   event.preventDefault();
   const newCard = {
@@ -125,13 +108,13 @@ profileEditButtonElement.addEventListener('click', function () {
   profileOccupationPopupElement.value = profileOccupationElement.textContent;
 });
 profileCloseButtonPopupElement.addEventListener('click', function () {closePopup(profilePopupElement)});
-// profilePopupElement.addEventListener('click', closeEditProfilePopupByClickOnOverlay);
+// profilePopupElement.addEventListener('click', closePopupByClickOnOverlay);
 profilePopupFormElement.addEventListener('submit', submitProfileForm);
 profileAddButtonElement.addEventListener('click', function () {
   openPopup(newPlacePopupElement);
 });
 newPlaceCloseButtonPopupElement.addEventListener('click', function () {closePopup(newPlacePopupElement)});
-// newPlacePopupElement.addEventListener('click', closeNewPlacePopupByClickOnOverlay);
+// newPlacePopupElement.addEventListener('click', closePopupByClickOnOverlay);
 newPlacePopupFormElement.addEventListener('submit', submitNewPlaceForm);
 function addNewPlaceEventListeners (newCardElement) {
 newCardElement.querySelector('.element__delete-button').addEventListener('click', deleteNewPlaceForm)
@@ -147,11 +130,4 @@ newCardElement.querySelector('.element__image').addEventListener('click', functi
 });
 }
 picturePopupCloseButton.addEventListener('click', function () {closePopup(picturePopupElement)});
-// picturePopupElement.addEventListener('click', closePicturePopupByClickOnOverlay);
-
-// profilePopupElement.addEventListener('keydown', function (event) {
-//   if(event.key === 'Escape') {
-//     console.log('Escape')
-//     closePopup(profilePopupElement)
-//   }
-// })
+// picturePopupElement.addEventListener('click', closePopupByClickOnOverlay);

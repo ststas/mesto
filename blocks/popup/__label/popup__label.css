@@ -1,0 +1,19 @@
+.popup__label {
+  margin: 70px 22px 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.popup__label:last-of-type {
+  margin: 29px 22px 0;
+}
+
+@media screen and (min-width: 768px) {
+  .popup__label {
+    margin: 45px 36px 0;
+  }
+  .popup__label:last-of-type {
+    margin: 29px 36px 0;
+  }
+}
