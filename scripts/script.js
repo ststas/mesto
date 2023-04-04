@@ -67,8 +67,8 @@ function closePopupByClickOnOverlay (event) {
 function submitNewPlaceForm(event) {
   event.preventDefault();
   const newCard = {
-  name: newPlaceNamePopupElement.value,
-  link: newPlaceLinkPopupElement.value,
+    name: newPlaceNamePopupElement.value,
+    link: newPlaceLinkPopupElement.value,
   };
   cardSectionElement.prepend(createCard(newCard));
   newPlacePopupFormElement.reset();
