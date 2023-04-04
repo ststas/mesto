@@ -21,11 +21,13 @@ const enableValidation = ({formSelector, ...rest}) => {
 const setEventListners = (formToValidate, {inputSelector, submitButtonSelector, ...rest}) => {
   const formInputFields = Array.from(formToValidate.querySelectorAll(inputSelector));
   const formSubmitButton = formToValidate.querySelector(submitButtonSelector);
-  disableButton(formSubmitButton, rest);
+  // disableButton(formSubmitButton, rest);
   formInputFields.forEach(inputField => {
     inputField.addEventListener('input', () => {
       checkInputValidityErrorUnderLine(inputField, rest)
       checkInputValidityErrorMessage(inputField, rest)
+      // addErrorMessage(inputField, rest)
+      // removeErrorMessage(inputField, rest)
       if(hasInvalidInput(formInputFields)) {
         disableButton(formSubmitButton, rest);
       } else {
@@ -34,7 +36,7 @@ const setEventListners = (formToValidate, {inputSelector, submitButtonSelector, 
     })
   })
 }
-//фунция установки красного подчеркивания поля форм, если оно не валидно
+// фунция установки/снятия красного подчеркивания поля форм, если оно не валидно
 const checkInputValidityErrorUnderLine = (inputField, {inputErrorClass}) => {
   const currentInput = document.querySelector(`#${inputField.id}`);
   if(!inputField.checkValidity()){
@@ -43,7 +45,7 @@ const checkInputValidityErrorUnderLine = (inputField, {inputErrorClass}) => {
     currentInput.classList.remove(inputErrorClass);
   }
 }
-//функция показа ошибки
+//функция показа/отмены ошибки
 const checkInputValidityErrorMessage = (inputField, {errorClass}) => {
   const currentInputErrorContainer = document.querySelector(`#${inputField.id}-error`);
   if(!inputField.checkValidity()){
@@ -54,6 +56,23 @@ const checkInputValidityErrorMessage = (inputField, {errorClass}) => {
     currentInputErrorContainer.textContent = '';
   }
 }
+
+// //функция показа ошибки
+// const addErrorMessage = (inputField, {errorClass}) => {
+//   const currentInputErrorContainer = document.querySelector(`#${inputField.id}-error`);
+//   if(!inputField.checkValidity()){
+//     currentInputErrorContainer.classList.add(errorClass);
+//     currentInputErrorContainer.textContent = inputField.validationMessage;
+//   }
+// }
+// //функция отмены ошибки
+// const removeErrorMessage = (inputField, {errorClass}) => {
+//   const currentInputErrorContainer = document.querySelector(`#${inputField.id}-error`);
+//   if(inputField.checkValidity()){  
+//   currentInputErrorContainer.classList.remove(errorClass);
+//     currentInputErrorContainer.textContent = '';
+//   }
+// }
 //функция проверки валидности поля
 const hasInvalidInput = (formInputFields) => {
   return formInputFields.some(item => !item.validity.valid);

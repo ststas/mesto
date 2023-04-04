@@ -42,6 +42,8 @@ initialCards.forEach(addCard);
 
 //функции открытия и закрытия попапа
 const openPopup = function (popup) {
+  const popupSubmitButton = popup.querySelector('.popup__submit-button');
+  disableButton(popupSubmitButton, {inactiveButtonClass: validationConfig.inactiveButtonClass})
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupByPressOnEsc);
   popup.addEventListener('click', closePopupByClickOnOverlay);
@@ -53,7 +55,6 @@ const closePopup = function (popup) {
 }
 const closePopupByPressOnEsc = function (event) {
   if(event.key === 'Escape') {
-    console.log(event.key);
     const popupOpened = document.querySelector('.popup_opened');
     closePopup(popupOpened);
   }
@@ -84,16 +85,6 @@ function addRemoveNewPlaceLike (event) {
   const newPlaceHeart = event.target.closest('.element__heart-button');
   newPlaceHeart.classList.toggle('element__heart-button_active');
 }
-
-// функция like карточки места + eventListener (для работы без навешивания eventListener на каждую карточку)
-// function addRemoveNewPlaceLike (event) {
-//   if(event.target.classList.contains('element__heart-button')){
-//     event.target.classList.toggle('element__heart-button_active');
-//     console.log(event.target);
-//   }
-// }
-// cardSectionElement.addEventListener('click', addRemoveNewPlaceLike)
-
 //функция отправки данных из полей редактирования всплывающего окна в профиль
 function submitProfileForm(event) {
   event.preventDefault();
@@ -108,13 +99,11 @@ profileEditButtonElement.addEventListener('click', function () {
   profileOccupationPopupElement.value = profileOccupationElement.textContent;
 });
 profileCloseButtonPopupElement.addEventListener('click', function () {closePopup(profilePopupElement)});
-// profilePopupElement.addEventListener('click', closePopupByClickOnOverlay);
 profilePopupFormElement.addEventListener('submit', submitProfileForm);
 profileAddButtonElement.addEventListener('click', function () {
   openPopup(newPlacePopupElement);
 });
 newPlaceCloseButtonPopupElement.addEventListener('click', function () {closePopup(newPlacePopupElement)});
-// newPlacePopupElement.addEventListener('click', closePopupByClickOnOverlay);
 newPlacePopupFormElement.addEventListener('submit', submitNewPlaceForm);
 function addNewPlaceEventListeners (newCardElement) {
 newCardElement.querySelector('.element__delete-button').addEventListener('click', deleteNewPlaceForm)
@@ -130,4 +119,3 @@ newCardElement.querySelector('.element__image').addEventListener('click', functi
 });
 }
 picturePopupCloseButton.addEventListener('click', function () {closePopup(picturePopupElement)});
-// picturePopupElement.addEventListener('click', closePopupByClickOnOverlay);
