@@ -107,7 +107,7 @@ profileCloseButtonPopupElement.addEventListener('click', function () {closePopup
 profilePopupFormElement.addEventListener('submit', submitProfileForm);
 profileAddButtonElement.addEventListener('click', function () {
   openPopup(newPlacePopupElement);
-  disableButton(newPlaceButtonPopupElement, {inactiveButtonClass: validationConfig.inactiveButtonClass})
+  disableButton(newPlaceSubmitButtonPopupElement, {inactiveButtonClass: validationConfig.inactiveButtonClass})
 });
 newPlaceCloseButtonPopupElement.addEventListener('click', function () {closePopup(newPlacePopupElement)});
 newPlacePopupFormElement.addEventListener('submit', submitNewPlaceForm);
