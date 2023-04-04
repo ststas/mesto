@@ -33,10 +33,10 @@ const setEventListners = (formToValidate, {inputSelector, submitButtonSelector, 
     })
   })
 }
-// фунция установки/снятия красного подчеркивания поля форм, если оно не валидно
+// фунция установки/снятия красного подчеркивания поля форм
 const checkInputValidityErrorUnderLine = (inputField, {inputErrorClass}) => {
   const currentInput = document.querySelector(`#${inputField.id}`);
-  if(!inputField.validity.valid ){
+  if(!inputField.validity.valid){
     currentInput.classList.add(inputErrorClass);
   }else {
     currentInput.classList.remove(inputErrorClass);
