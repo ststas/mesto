@@ -39,7 +39,6 @@ function addCard (item) {
 }
 // выполняем автозаполнение первых шести карточек мест
 initialCards.forEach(addCard);
-
 //функции открытия и закрытия попапа
 const openPopup = function (popup) {
   const popupSubmitButton = popup.querySelector('.popup__submit-button');
@@ -49,9 +48,15 @@ const openPopup = function (popup) {
   popup.addEventListener('click', closePopupByClickOnOverlay);
 }
 const closePopup = function (popup) {
+  const inputFields = Array.from(popup.querySelectorAll('.popup__field')) 
+  inputFields.forEach(inputField => {
+    checkInputValidityErrorMessage(inputField, {errorClass: validationConfig.errorClass})
+    checkInputValidityErrorUnderLine(inputField, {inputErrorClass: validationConfig.inputErrorClass})
+  })
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupByPressOnEsc);
   popup.removeEventListener('click', closePopupByClickOnOverlay);
+  
 }
 const closePopupByPressOnEsc = function (event) {
   if(event.key === 'Escape') {
