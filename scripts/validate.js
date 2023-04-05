@@ -11,9 +11,6 @@ const validationConfig = {
 const enableValidation = ({formSelector, ...rest}) => {
   const forms = Array.from(document.querySelectorAll(formSelector));
   forms.forEach(form => {
-    form.addEventListener('submit',(evt) => {
-      evt.preventDefault();
-    })
     setEventListners(form, rest);
   })  
 }
@@ -23,8 +20,7 @@ const setEventListners = (formToValidate, {inputSelector, submitButtonSelector, 
   const formSubmitButton = formToValidate.querySelector(submitButtonSelector);
   formInputFields.forEach(inputField => {
     inputField.addEventListener('input', () => {
-      checkInputValidityErrorUnderLine(inputField, rest)
-      checkInputValidityErrorMessage(inputField, rest)
+      checkInputValidity(inputField, rest);
       if(hasInvalidInput(formInputFields)) {
         disableButton(formSubmitButton, rest);
       } else {
@@ -33,36 +29,41 @@ const setEventListners = (formToValidate, {inputSelector, submitButtonSelector, 
     })
   })
 }
-// фунция установки/снятия красного подчеркивания поля форм
-const checkInputValidityErrorUnderLine = (inputField, {inputErrorClass}) => {
+//функция валидации полей ввода формы
+const checkInputValidity = (inputField, rest) => {
+  if(!inputField.validity.valid){
+    showErrorMessageAndRedUnderline(inputField, rest)
+  }else {
+    removeErrorMessageAndRedUnderline(inputField, rest)
+  }
+}
+//функция показа ошибки
+const showErrorMessageAndRedUnderline = (inputField, {errorClass, inputErrorClass}) => {
   const currentInput = document.querySelector(`#${inputField.id}`);
-  if(!inputField.validity.valid){
-    currentInput.classList.add(inputErrorClass);
-  }else {
-    currentInput.classList.remove(inputErrorClass);
-  }
-}
-// функция показа/отмены ошибки
-const checkInputValidityErrorMessage = (inputField, {errorClass}) => {
   const currentInputErrorContainer = document.querySelector(`#${inputField.id}-error`);
-  if(!inputField.validity.valid){
-    currentInputErrorContainer.classList.add(errorClass);
-    currentInputErrorContainer.textContent = inputField.validationMessage;
-  }else {
-    currentInputErrorContainer.classList.remove(errorClass);
-    currentInputErrorContainer.textContent = '';
-  }
+  currentInputErrorContainer.classList.add(errorClass);
+  currentInputErrorContainer.textContent = inputField.validationMessage;
+  currentInput.classList.add(inputErrorClass);
 }
-//функция проверки валидности поля
-const hasInvalidInput = (formInputFields) => {
-  return formInputFields.some(item => !item.validity.valid);
+//функция отмены ошибки
+const removeErrorMessageAndRedUnderline = (inputField, {errorClass, inputErrorClass}) => {
+  const currentInput = document.querySelector(`#${inputField.id}`);
+  const currentInputErrorContainer = document.querySelector(`#${inputField.id}-error`);
+  currentInputErrorContainer.classList.remove(errorClass);
+  currentInput.classList.remove(inputErrorClass);
 }
 //функции статуса кнопки submit
 const enableButton = (submitButton, {inactiveButtonClass}) => {
   submitButton.classList.remove(inactiveButtonClass);
+  submitButton.removeAttribute('disabled');
 }
 const disableButton = (submitButton, {inactiveButtonClass}) => {
   submitButton.classList.add(inactiveButtonClass);
+  submitButton.setAttribute('disabled', true);
+}
+//функция проверки валидности всех полей для установки статуса кнопки submit
+const hasInvalidInput = (formInputFields) => {
+  return formInputFields.some(item => !item.validity.valid);
 }
 //вызов функции валидации
 enableValidation(validationConfig);

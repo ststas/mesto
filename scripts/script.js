@@ -46,12 +46,10 @@ initialCards.forEach(addCard);
 const openPopup = function (popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupByPressOnEsc);
-  popup.addEventListener('click', closePopupByClickOnOverlay);
 }
 const closePopup = function (popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupByPressOnEsc);
-  popup.removeEventListener('click', closePopupByClickOnOverlay);
 }
 const closePopupByPressOnEsc = function (event) {
   if(event.key === 'Escape') {
@@ -59,12 +57,12 @@ const closePopupByPressOnEsc = function (event) {
     closePopup(popupOpened);
   }
 }
-function closePopupByClickOnOverlay (event) {
+const closePopupByClickOnOverlay = function (event) {
   if (event.target === event.currentTarget) {
-    const popupOpened = document.querySelector('.popup_opened');
-    closePopup(popupOpened);
+    closePopup(event.target);
   }
 }
+//функция создания новой карточки места
 function submitNewPlaceForm(event) {
   event.preventDefault();
   const newCard = {
@@ -99,17 +97,19 @@ profileEditButtonElement.addEventListener('click', function () {
   profileOccupationPopupElement.value = profileOccupationElement.textContent;
   disableButton(profileSubmitButtonPopupElement, {inactiveButtonClass: validationConfig.inactiveButtonClass})
   profileInputFields.forEach(inputField => {
-    checkInputValidityErrorMessage(inputField, {errorClass: validationConfig.errorClass})
-    checkInputValidityErrorUnderLine(inputField, {inputErrorClass: validationConfig.inputErrorClass})
+    checkInputValidity(inputField, {errorClass: validationConfig.errorClass, inputErrorClass: validationConfig.inputErrorClass})
   })
 });
 profileCloseButtonPopupElement.addEventListener('click', function () {closePopup(profilePopupElement)});
+profilePopupElement.addEventListener('click', function (event) {closePopupByClickOnOverlay(event)});
 profilePopupFormElement.addEventListener('submit', submitProfileForm);
 profileAddButtonElement.addEventListener('click', function () {
   openPopup(newPlacePopupElement);
+  newPlacePopupFormElement.reset();
   disableButton(newPlaceSubmitButtonPopupElement, {inactiveButtonClass: validationConfig.inactiveButtonClass})
 });
 newPlaceCloseButtonPopupElement.addEventListener('click', function () {closePopup(newPlacePopupElement)});
+newPlacePopupElement.addEventListener('click', function (event) {closePopupByClickOnOverlay(event)});
 newPlacePopupFormElement.addEventListener('submit', submitNewPlaceForm);
 function addNewPlaceEventListeners (newCardElement) {
   newCardElement.querySelector('.element__delete-button').addEventListener('click', deleteNewPlaceForm)
@@ -125,3 +125,4 @@ function addNewPlaceEventListeners (newCardElement) {
   });
   }
 picturePopupCloseButton.addEventListener('click', function () {closePopup(picturePopupElement)});
+picturePopupElement.addEventListener('click', function (event) {closePopupByClickOnOverlay(event)});
