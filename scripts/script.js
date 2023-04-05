@@ -11,16 +11,17 @@ const profileOccupationElement = profileElement.querySelector('.profile__occupat
 const profilePopupElement = document.querySelector('#profile-popup');
 const profileCloseButtonPopupElement = profilePopupElement.querySelector('.popup__close-button');
 const profileSubmitButtonPopupElement = profilePopupElement.querySelector('.popup__submit-button');
-const profilePopupFormElement = profilePopupElement.querySelector('.popup__form')
+const profilePopupFormElement = profilePopupElement.querySelector('.popup__form');
 const profileNamePopupElement = profilePopupElement.querySelector('.popup__field_profile_name');
 const profileOccupationPopupElement = profilePopupElement.querySelector('.popup__field_profile_occupation');
-const profileInputFields = Array.from(profilePopupElement.querySelectorAll('.popup__field')) 
+const profileInputFields = Array.from(profilePopupElement.querySelectorAll('.popup__field'));
 const newPlacePopupElement = document.querySelector('#newplace-popup');
 const newPlaceCloseButtonPopupElement = newPlacePopupElement.querySelector('.popup__close-button');
 const newPlaceSubmitButtonPopupElement = newPlacePopupElement.querySelector('.popup__submit-button');
-const newPlacePopupFormElement = newPlacePopupElement.querySelector('.popup__form')
+const newPlacePopupFormElement = newPlacePopupElement.querySelector('.popup__form');
 const newPlaceNamePopupElement = newPlacePopupElement.querySelector('.popup__field_newplace_name');
 const newPlaceLinkPopupElement = newPlacePopupElement.querySelector('.popup__field_newplace_link');
+const newPlaceInputFields = Array.from(newPlacePopupFormElement.querySelectorAll('.popup__field'))
 const picturePopupElement = document.querySelector('#picture-popup');
 const picturePopupCloseButton = picturePopupElement.querySelector('.popup__close-button');
 const picturePopupImageElement = picturePopupElement.querySelector('.popup__image');
@@ -104,9 +105,12 @@ profileCloseButtonPopupElement.addEventListener('click', function () {closePopup
 profilePopupElement.addEventListener('click', function (event) {closePopupByClickOnOverlay(event)});
 profilePopupFormElement.addEventListener('submit', submitProfileForm);
 profileAddButtonElement.addEventListener('click', function () {
-  openPopup(newPlacePopupElement);
   newPlacePopupFormElement.reset();
+  newPlaceInputFields.forEach(inputField => {
+    removeErrorMessageAndRedUnderline(inputField, {errorClass: validationConfig.errorClass, inputErrorClass: validationConfig.inputErrorClass})
+  })
   disableButton(newPlaceSubmitButtonPopupElement, {inactiveButtonClass: validationConfig.inactiveButtonClass})
+  openPopup(newPlacePopupElement);
 });
 newPlaceCloseButtonPopupElement.addEventListener('click', function () {closePopup(newPlacePopupElement)});
 newPlacePopupElement.addEventListener('click', function (event) {closePopupByClickOnOverlay(event)});
