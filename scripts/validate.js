@@ -7,7 +7,7 @@ const validationConfig = {
   inputErrorClass: 'popup__field_type_error',
   errorClass: 'popup__error_visible'
 }
-//функция валидации формы
+//функция выбора попап форм
 const enableValidation = ({formSelector, ...rest}) => {
   const forms = Array.from(document.querySelectorAll(formSelector));
   forms.forEach(form => {
