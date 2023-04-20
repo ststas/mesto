@@ -26,6 +26,7 @@ const picturePopupElement = document.querySelector('#picture-popup');
 const picturePopupCloseButton = picturePopupElement.querySelector('.popup__close-button');
 const picturePopupImageElement = picturePopupElement.querySelector('.popup__image');
 const picturePopupImageCaptionElement = picturePopupElement.querySelector('.popup__image-caption');
+
 //определяем функцию для автозаполенения карточек мест
 function createCard (item) {
   const newCardElement = cardElement.cloneNode(true);
@@ -37,12 +38,16 @@ function createCard (item) {
   addNewPlaceEventListeners(newCardElement);
   return newCardElement;
 }
+
+
+
 // определяем функцию для публикации карточек мест
 function addCard (item) {
   cardSectionElement.append(createCard(item));
 }
 // выполняем автозаполнение первых шести карточек мест
 initialCards.forEach(addCard);
+
 //функции открытия и закрытия попапа
 const openPopup = function (popup) {
   popup.classList.add('popup_opened');
@@ -63,6 +68,7 @@ const closePopupByClickOnOverlay = function (event) {
     closePopup(event.target);
   }
 }
+
 //функция создания новой карточки места
 function submitNewPlaceForm(event) {
   event.preventDefault();
@@ -115,6 +121,7 @@ profileAddButtonElement.addEventListener('click', function () {
 newPlaceCloseButtonPopupElement.addEventListener('click', function () {closePopup(newPlacePopupElement)});
 newPlacePopupElement.addEventListener('click', function (event) {closePopupByClickOnOverlay(event)});
 newPlacePopupFormElement.addEventListener('submit', submitNewPlaceForm);
+
 function addNewPlaceEventListeners (newCardElement) {
   newCardElement.querySelector('.element__delete-button').addEventListener('click', deleteNewPlaceForm)
   newCardElement.querySelector('.element__heart-button').addEventListener('click', addRemoveNewPlaceLike)
