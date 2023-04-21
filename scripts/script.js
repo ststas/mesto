@@ -1,3 +1,5 @@
+import initialCards from "./initial-сards.js";
+
 //определяем переменные для заполенения карточек мест
 const cardSectionElement = document.querySelector('.elements');
 const cardElement = document.querySelector('#card-template').content;
@@ -15,6 +17,7 @@ const profilePopupFormElement = profilePopupElement.querySelector('.popup__form'
 const profileNamePopupElement = profilePopupElement.querySelector('.popup__field_profile_name');
 const profileOccupationPopupElement = profilePopupElement.querySelector('.popup__field_profile_occupation');
 const profileInputFields = Array.from(profilePopupElement.querySelectorAll('.popup__field'));
+
 const newPlacePopupElement = document.querySelector('#newplace-popup');
 const newPlaceCloseButtonPopupElement = newPlacePopupElement.querySelector('.popup__close-button');
 const newPlaceSubmitButtonPopupElement = newPlacePopupElement.querySelector('.popup__submit-button');
@@ -22,6 +25,7 @@ const newPlacePopupFormElement = newPlacePopupElement.querySelector('.popup__for
 const newPlaceNamePopupElement = newPlacePopupElement.querySelector('.popup__field_newplace_name');
 const newPlaceLinkPopupElement = newPlacePopupElement.querySelector('.popup__field_newplace_link');
 const newPlaceInputFields = Array.from(newPlacePopupFormElement.querySelectorAll('.popup__field'))
+
 const picturePopupElement = document.querySelector('#picture-popup');
 const picturePopupCloseButton = picturePopupElement.querySelector('.popup__close-button');
 const picturePopupImageElement = picturePopupElement.querySelector('.popup__image');
@@ -38,8 +42,6 @@ function createCard (item) {
   addNewPlaceEventListeners(newCardElement);
   return newCardElement;
 }
-
-
 
 // определяем функцию для публикации карточек мест
 function addCard (item) {
@@ -97,6 +99,18 @@ function submitProfileForm(event) {
   profileOccupationElement.textContent = profileOccupationPopupElement.value;
   closePopup(profilePopupElement);
 }
+
+//открытие попапа картинки
+function openPicturePopup(event) {
+  openPopup(picturePopupElement);
+  const cardElement = event.target.closest('.element');
+  const cardElementImage = cardElement.querySelector('.element__image');
+  const cardElementTitle = cardElement.querySelector('.element__title');
+  picturePopupImageElement.src = cardElementImage.src;
+  picturePopupImageElement.alt = cardElementImage.alt;
+  picturePopupImageCaptionElement.textContent = cardElementTitle.textContent;
+}
+
 // назначаем обработчики событий
 profileEditButtonElement.addEventListener('click', function () {
   openPopup(profilePopupElement);
@@ -118,6 +132,8 @@ profileAddButtonElement.addEventListener('click', function () {
   disableButton(newPlaceSubmitButtonPopupElement, {inactiveButtonClass: validationConfig.inactiveButtonClass})
   openPopup(newPlacePopupElement);
 });
+
+
 newPlaceCloseButtonPopupElement.addEventListener('click', function () {closePopup(newPlacePopupElement)});
 newPlacePopupElement.addEventListener('click', function (event) {closePopupByClickOnOverlay(event)});
 newPlacePopupFormElement.addEventListener('submit', submitNewPlaceForm);
@@ -125,15 +141,9 @@ newPlacePopupFormElement.addEventListener('submit', submitNewPlaceForm);
 function addNewPlaceEventListeners (newCardElement) {
   newCardElement.querySelector('.element__delete-button').addEventListener('click', deleteNewPlaceForm)
   newCardElement.querySelector('.element__heart-button').addEventListener('click', addRemoveNewPlaceLike)
-  newCardElement.querySelector('.element__image').addEventListener('click', function (event) {
-    openPopup(picturePopupElement);
-    const cardElement = event.target.closest('.element');
-    const cardElementImage = cardElement.querySelector('.element__image');
-    const cardElementTitle = cardElement.querySelector('.element__title');
-    picturePopupImageElement.src = cardElementImage.src;
-    picturePopupImageElement.alt = cardElementImage.alt;
-    picturePopupImageCaptionElement.textContent = cardElementTitle.textContent;
-  });
+  newCardElement.querySelector('.element__image').addEventListener('click', openPicturePopup);
   }
+
+
 picturePopupCloseButton.addEventListener('click', function () {closePopup(picturePopupElement)});
 picturePopupElement.addEventListener('click', function (event) {closePopupByClickOnOverlay(event)});
