@@ -1,9 +1,9 @@
-//ипортируем данные и классы
+//ипортируем данные
 import validationConfig from "./validation-config.js"
-import initialCards from "./initial-сards.js";
+import initialCards from "./initial-сards.js"
+//импортируем классы
 import Card from "./Card.js"
 import FormValidator from "./FormValidator.js"
-
 //определяем переменные
 const cardSectionElement = document.querySelector('.elements');
 const profileElement = document.querySelector('.profile');
@@ -25,11 +25,10 @@ const picturePopupElement = document.querySelector('#picture-popup');
 const picturePopupCloseButton = picturePopupElement.querySelector('.popup__close-button');
 const picturePopupImageElement = picturePopupElement.querySelector('.popup__image');
 const picturePopupImageCaptionElement = picturePopupElement.querySelector('.popup__image-caption');
-
 //функция создания новой карточки
 function createNewCard(item) {
   const newCard = new Card(item, "#card-template", openPicturePopup);
-  return newCard.createCard()
+  return newCard.createCard();
 }
 //функция добавления карточки места
 function submitNewPlaceForm(event) {
@@ -44,9 +43,8 @@ function submitNewPlaceForm(event) {
 }
 //выполняем автозаполнение первых шести карточек мест
 initialCards.forEach((initialCard) => {
-  cardSectionElement.append(createNewCard(initialCard))
+  cardSectionElement.append(createNewCard(initialCard));
 })
-
 //функции открытия и закрытия попапа
 const openPopup = function (popup) {
   popup.classList.add('popup_opened');
@@ -81,15 +79,9 @@ function submitProfileForm(event) {
   profileOccupationElement.textContent = profileOccupationPopupElement.value;
   closePopup(profilePopupElement);
 }
-//создаем класс для валидации формы профиля
-const profilePopupFormValidator = new FormValidator(validationConfig, profilePopupFormElement)
-profilePopupFormValidator.enableValidation()
-//создаем класс для валидации формы добавления новой карточки места
-const newPlacePopupFormValidator = new FormValidator(validationConfig, newPlacePopupFormElement)
-newPlacePopupFormValidator.enableValidation()
 //обработчики событий для профиля
 profileEditButtonElement.addEventListener('click', function () {
-  profilePopupFormValidator.resetErrorsOnFields()
+  profilePopupFormValidator.resetErrorsOnInputFields();
   profileNamePopupElement.value = profileNameElement.textContent;
   profileOccupationPopupElement.value = profileOccupationElement.textContent;
   openPopup(profilePopupElement);
@@ -99,7 +91,7 @@ profilePopupElement.addEventListener('click', function (event) {closePopupByClic
 profilePopupFormElement.addEventListener('submit', submitProfileForm);
 //обработчики событий для добавления новой карточки
 profileAddButtonElement.addEventListener('click', function () {
-  newPlacePopupFormValidator.resetErrorsOnFields()
+  newPlacePopupFormValidator.resetErrorsOnInputFields();
   newPlacePopupFormElement.reset();
   openPopup(newPlacePopupElement);
 });
@@ -109,4 +101,9 @@ newPlacePopupFormElement.addEventListener('submit', submitNewPlaceForm);
 //обработчики событий попапа картинки
 picturePopupCloseButton.addEventListener('click', function () {closePopup(picturePopupElement)});
 picturePopupElement.addEventListener('click', function (event) {closePopupByClickOnOverlay(event)});
-
+//создаем класс для валидации формы профиля
+const profilePopupFormValidator = new FormValidator(validationConfig, profilePopupFormElement);
+profilePopupFormValidator.enableValidation();
+//создаем класс для валидации формы добавления новой карточки места
+const newPlacePopupFormValidator = new FormValidator(validationConfig, newPlacePopupFormElement);
+newPlacePopupFormValidator.enableValidation();
