@@ -37,9 +37,7 @@ class Card {
     this._element.querySelector('.element__title').textContent = this._title
     this._element.querySelector('.element__image').src = this._image
     this._element.querySelector('.element__image').alt = this._title
-    
-    this._setEventListeners()
-    
+    this._setEventListeners()   
     return this._element;
   }
 }

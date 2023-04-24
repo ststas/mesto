@@ -1,5 +1,3 @@
-
-
 //конфигурация валидации
 const validationConfig = {
   formSelector: '.popup__form',
@@ -70,3 +68,4 @@ const hasInvalidInput = (formInputFields) => {
 //вызов функции валидации
 enableValidation(validationConfig);
 
+export {validationConfig, checkInputValidity, removeErrorMessageAndRedUnderline, disableButton}

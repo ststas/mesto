@@ -1,4 +1,5 @@
 import initialCards from "./initial-сards.js";
+import {validationConfig, checkInputValidity, removeErrorMessageAndRedUnderline, disableButton} from "./validate.js"
 
 //определяем переменные для заполенения карточек мест
 const cardSectionElement = document.querySelector('.elements');
