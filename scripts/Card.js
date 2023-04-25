@@ -13,15 +13,17 @@ class Card {
 //функция создания карточки
 createCard () {
   this._element = this._getTemplate();
+  this._elementImage = this._element.querySelector('.element__image')
+  this._elementImage.src = this._image
+  this._elementImage.alt = this._title
   this._element.querySelector('.element__title').textContent = this._title
-  this._element.querySelector('.element__image').src = this._image
-  this._element.querySelector('.element__image').alt = this._title
   this._setEventListeners()   
   return this._element;
 }  
 //функция установки слушателей на кнопки и изображение карточки
   _setEventListeners () {
-    this._element.querySelector('.element__heart-button').addEventListener('click', () => {
+    this._likeButton = this._element.querySelector('.element__heart-button')
+    this._likeButton.addEventListener('click', () => {
       this._likeCard();
     })
     this._element.querySelector('.element__delete-button').addEventListener('click', () => {
@@ -33,7 +35,7 @@ createCard () {
   }  
 //функция лайка карточки
   _likeCard = () => {
-    this._element.querySelector('.element__heart-button').classList.toggle('element__heart-button_active')
+    this._likeButton.classList.toggle('element__heart-button_active')
   }
 //функция удаления карточки
   _deleteCard = () => {
