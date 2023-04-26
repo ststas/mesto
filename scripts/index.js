@@ -79,6 +79,12 @@ function submitProfileForm(event) {
   profileOccupationElement.textContent = profileOccupationPopupElement.value;
   closePopup(profilePopupElement);
 }
+//создаем класс для валидации формы профиля
+const profilePopupFormValidator = new FormValidator(validationConfig, profilePopupFormElement);
+profilePopupFormValidator.enableValidation();
+//создаем класс для валидации формы добавления новой карточки места
+const newPlacePopupFormValidator = new FormValidator(validationConfig, newPlacePopupFormElement);
+newPlacePopupFormValidator.enableValidation();
 //обработчики событий для профиля
 profileEditButtonElement.addEventListener('click', function () {
   profilePopupFormValidator.resetErrorsOnInputFields();
@@ -101,9 +107,3 @@ newPlacePopupFormElement.addEventListener('submit', submitNewPlaceForm);
 //обработчики событий попапа картинки
 picturePopupCloseButton.addEventListener('click', function () {closePopup(picturePopupElement)});
 picturePopupElement.addEventListener('click', function (event) {closePopupByClickOnOverlay(event)});
-//создаем класс для валидации формы профиля
-const profilePopupFormValidator = new FormValidator(validationConfig, profilePopupFormElement);
-profilePopupFormValidator.enableValidation();
-//создаем класс для валидации формы добавления новой карточки места
-const newPlacePopupFormValidator = new FormValidator(validationConfig, newPlacePopupFormElement);
-newPlacePopupFormValidator.enableValidation();
