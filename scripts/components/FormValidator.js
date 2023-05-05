@@ -1,4 +1,4 @@
-class FormValidator {
+export default class FormValidator {
   constructor(config, formElement) {
     this._inputSelector = config.inputSelector;
     this._submitButtonSelector = config.submitButtonSelector;
@@ -71,4 +71,3 @@ class FormValidator {
     return this._formInputFields.some(item => !item.validity.valid);
   }   
 }
-export default FormValidator;

@@ -1,9 +1,8 @@
 //ипортируем данные
-import validationConfig from "./validationconfig.js"
-import initialCards from "./initial-сards.js"
+import {initialCards, validationConfig} from "../scripts/utils/constants.js"
 //импортируем классы
-import Card from "./Card.js"
-import FormValidator from "./FormValidator.js"
+import Card from "../scripts/components/Card.js"
+import FormValidator from "../scripts/components/FormValidator.js"
 //определяем переменные
 const cardSectionElement = document.querySelector('.elements');
 const profileElement = document.querySelector('.profile');

@@ -1,4 +1,4 @@
-class Card {
+export default class Card {
   constructor(data, template, openPicturePopup) {
     this._title = data.name;
     this._image = data.link;
@@ -43,4 +43,3 @@ createCard () {
       this._element = null;
   }
 }
-export default Card;
