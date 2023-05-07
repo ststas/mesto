@@ -1,4 +1,4 @@
-//определяем массив для автозаполенения карточек мест
+//массив для автозаполенения карточек мест
 const initialCards = [
   {
     name: 'Байкал',
@@ -35,6 +35,7 @@ const validationConfig = {
   inputErrorClass: 'popup__field_type_error',
   errorClass: 'popup__error_visible'
 }
+//константы
 const cardsSectionSelector = '.elements'
 const cardTemplateElement = '#card-template';
 const newPlacePopupSelector = '#newplace-popup';
@@ -49,7 +50,6 @@ const profilePopupElement = document.querySelector('#profile-popup')
 const profilePopupFormElement = profilePopupElement.querySelector('.popup__form');
 const newPlacePopupElement = document.querySelector('#newplace-popup')
 const newPlacePopupFormElement = newPlacePopupElement.querySelector('.popup__form');
-
 
 export {
   initialCards, 
