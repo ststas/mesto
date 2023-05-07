@@ -7,11 +7,11 @@ export default class FormValidator {
     this._errorClass = config.errorClass;
     this._formElement = formElement;
   } 
-//функция валидации
+// функция валидации
   enableValidation () {
     this._setEventListeners()
   } 
-//функция установки слушателей
+// функция установки слушателей
   _setEventListeners () {
     this._formInputFields = Array.from(this._formElement.querySelectorAll(this._inputSelector));
     this._formSubmitButton = this._formElement.querySelector(this._submitButtonSelector);
@@ -27,7 +27,7 @@ export default class FormValidator {
       })
     })
   }
-//функция валидации полей ввода формы
+// функция валидации полей ввода формы
   _checkInputValidity () {
     if(!this._inputField.validity.valid){
       this._showErrorMessageAndRedUnderline()
@@ -35,19 +35,19 @@ export default class FormValidator {
       this._removeErrorMessageAndRedUnderline()
     }
   }
-//функция показа ошибки
+// функция показа ошибки
   _showErrorMessageAndRedUnderline () {
     this._formElement.querySelector(`#${this._inputField.id}-error`).classList.add(this._errorClass);
     this._formElement.querySelector(`#${this._inputField.id}-error`).textContent = this._inputField.validationMessage;
     this._formElement.querySelector(`#${this._inputField.id}`).classList.add(this._inputErrorClass);
   }
-//функция отмены ошибки
+// функция отмены ошибки
   _removeErrorMessageAndRedUnderline () {
     this._formElement.querySelector(`#${this._inputField.id}-error`).classList.remove(this._errorClass);
     this._formElement.querySelector(`#${this._inputField.id}-error`).textContent = '';
     this._formElement.querySelector(`#${this._inputField.id}`).classList.remove(this._inputErrorClass);
   }
-//функции статуса кнопки submit
+// функции статуса кнопки submit
   _enableButton () {
     this._formSubmitButton.classList.remove(this._inactiveButtonClass);
     this._formSubmitButton.removeAttribute('disabled');
@@ -56,7 +56,7 @@ export default class FormValidator {
     this._formSubmitButton.classList.add(this._inactiveButtonClass);
     this._formSubmitButton.setAttribute('disabled', true);
   }
-//функция сброса ошибок полей формы
+// функция сброса ошибок полей формы
   resetErrorsOnInputFields () {
     this._formInputFields.forEach(inputField => {
       this._inputField = inputField;
@@ -66,7 +66,7 @@ export default class FormValidator {
     })
     this._disableButton()
   }
-//функция проверки валидности всех полей для установки статуса кнопки submit
+// функция проверки валидности всех полей для установки статуса кнопки submit
   _hasInvalidInput = () => {
     return this._formInputFields.some(item => !item.validity.valid);
   }   
