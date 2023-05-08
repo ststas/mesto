@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Место Россия</title>
 </head>
 <body>
@@ -13,7 +12,7 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img src="./images/profile-avatar.jpg" class="profile__avatar" alt="фото пользователя">
+        <img src="<%=require('./images/profile-avatar.jpg')%>" class="profile__avatar" alt="фото пользователя">
         <div class="profile__info"> 
           <div class="profile__name-and-edit">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -59,7 +58,7 @@
       <div class="popup__picture-container">
         <button type="button" class="popup__close-button"></button>
         <figure class="popup__figure">
-          <img src="#" class="popup__image" alt="пользовательское изображение">
+          <img src="#" class="popup__image" alt="">
           <figcaption class="popup__image-caption"></figcaption>
         </figure>
       </div>
@@ -75,6 +74,5 @@
       </article>
     </template>
   </div>
-  <script type="module" src="./pages/index.js"></script>
 </body>
 </html>    

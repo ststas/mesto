@@ -16,12 +16,14 @@ import {
   newPlacePopupFormElement
 } from "../scripts/utils/constants.js"
 // импортируем классы
+import "../pages/index.css"
 import Card from "../scripts/components/Card.js"
 import FormValidator from "../scripts/components/FormValidator.js"
 import PopupWithForm from "../scripts/components/PopupWithForm.js"
 import PopupWithImage from "../scripts/components/PopupWithImage.js"
 import Section from "../scripts/components/Section.js"
 import UserInfo from "../scripts/components/UserInfo.js"
+
 
 // КАРТОЧКИ
 // создаем класс для попапа с картинкой и устанавливаем слуша
@@ -83,4 +85,3 @@ profileAddButtonElement.addEventListener('click', function () {
   newPlacePopupFormValidator.resetErrorsOnInputFields();
   newPlacePopup.openPopup();
 });
-
