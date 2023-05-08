@@ -43,7 +43,7 @@ const newPlacePopup = new PopupWithForm({
   popupSelector: newPlacePopupSelector, 
   handlePopupFormSubmit: (event) => {
     event.preventDefault();
-    section.addItem(newPlacePopup._getInputValues())
+    section.addItem(newPlacePopup.getInputValues())
     newPlacePopup.closePopup()
   }
 })
@@ -59,7 +59,7 @@ const profilePopup = new PopupWithForm({
   popupSelector: profilePopupSelector, 
   handlePopupFormSubmit: (event) => {
     event.preventDefault();
-    profileInfo.setUserInfo(profilePopup._getInputValues())
+    profileInfo.setUserInfo(profilePopup.getInputValues())
     profilePopup.closePopup()
   }
 })

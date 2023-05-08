@@ -3,7 +3,7 @@
   display: grid;
   grid-template-columns: 1fr;
   width: 320px;
-  min-height: 56px;
+  height: 56px;
   margin: 28px auto 0;
   box-sizing: border-box;
   border-bottom: 1px solid rgba(84, 84, 84, 0.7);
@@ -18,7 +18,7 @@
 @media screen and (min-width: 1024px) {
   .header {
     width: 880px;
-    min-height: 74px;
+    height: 74px;
     margin: 45px auto 0;
   }
 }

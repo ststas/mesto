@@ -1,5 +1,6 @@
 .page {
   min-width: 320px;
+  min-height: 100vh;
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -15,4 +16,5 @@
   "elements"
   "footer";
   justify-content: center;
+  align-content: start;
 }

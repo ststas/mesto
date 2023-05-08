@@ -8,7 +8,7 @@ export default class PopupWithForm extends Popup {
     this._handlePopupFormSubmit = handlePopupFormSubmit;
   }
   // получение значений полей формы
-  _getInputValues() {
+  getInputValues() {
     this._formValues = {};
     this._inputList.forEach((input) => {this._formValues[input.name] = input.value});
     return this._formValues;
