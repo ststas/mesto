@@ -39,10 +39,12 @@ const validationConfig = {
 const cardsSectionSelector = '.elements'
 const cardTemplateElement = '#card-template';
 const newPlacePopupSelector = '#newplace-popup';
+const newPlaceRemovalPopupSelector = '#delete-newplace-popup'
 const profilePopupSelector = '#profile-popup';
-const picturePopupSelector = '#picture-popup';
+const picturePopupSelector = '#picture-popup'; 
 const profileNameSelector = '.profile__name';
 const profileOccupationSelector = '.profile__occupation';
+const profileAvatarSelector = '.profile__avatar';
 const profileElement = document.querySelector('.profile');
 const profileEditButtonElement = profileElement.querySelector('.profile__edit-button');
 const profileAddButtonElement = profileElement.querySelector('.profile__add-button');
@@ -57,10 +59,12 @@ export {
   cardsSectionSelector,
   cardTemplateElement,
   newPlacePopupSelector,
+  newPlaceRemovalPopupSelector,
   profilePopupSelector,
   picturePopupSelector,
   profileNameSelector,
   profileOccupationSelector,
+  profileAvatarSelector ,
   profileEditButtonElement,
   profileAddButtonElement,
   profilePopupFormElement,

@@ -1,18 +1,21 @@
 export default class UserInfo {
-  constructor ({profileNameSelector, profileOccupationSelector}) {
+  constructor ({profileNameSelector, profileOccupationSelector, profileAvatarSelector}) {
     this._profileName = document.querySelector(profileNameSelector)
     this._profileOccupation = document.querySelector(profileOccupationSelector)
+    this._profileAvatar = document.querySelector(profileAvatarSelector)
   }
   // получение данных из профиля
   getUserInfo() {
     return {
       name: this._profileName.textContent, 
-      occupation: this._profileOccupation.textContent 
+      about: this._profileOccupation.textContent 
      }
   }
   // установка данных профиля из полей формы попапа профиля
-  setUserInfo(formData) {
-    this._profileName.textContent = formData.name;
-    this._profileOccupation.textContent = formData.occupation;
+  setUserInfo(userData) {
+    if(userData.name){this._profileName.textContent = userData.name};
+    if(userData.about){this._profileOccupation.textContent = userData.about};
+    if(userData.avatar){this._profileAvatar.src = userData.avatar};
   }
+
 }
