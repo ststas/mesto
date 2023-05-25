@@ -6,6 +6,7 @@ export default class PopupWithForm extends Popup {
     this._form = this._popup.querySelector('.popup__form');
     this._inputList = this._popup.querySelectorAll('.popup__field');
     this._handlePopupFormSubmit = handlePopupFormSubmit;
+    
   }
   // получение значений полей формы
   getInputValues() {
@@ -20,7 +21,10 @@ export default class PopupWithForm extends Popup {
   // установка слушателей на форму для сабмита
   setEventListeners(){
     super.setEventListeners()
-    this._form.addEventListener('submit', this._handlePopupFormSubmit)
+    this._form.addEventListener('submit', (event) => {
+      event.preventDefault(); 
+      this._handlePopupFormSubmit(this.getInputValues())
+    })
   }
   // функция закрытия попапа с очисткой формы
   closePopup() {

@@ -42,7 +42,18 @@
           <button type="submit" class="popup__submit-button">Сохранить</button> 
         </form>  
       </div>
-    </section> 
+    </section>
+    <section class="popup" id="profile-avatar-popup">
+      <div class="popup__container">
+        <button type="button" class="popup__close-button"></button>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form name="profile-avatar" class="popup__form" novalidate>
+          <input type="url" id="avatar" name="avatar" placeholder="Ссылка на картинку" value="" class="popup__field popup__field_margin_top popup__field_avatar_link" required>            
+          <span id="avatar-error" class="popup__error"></span>
+          <button type="submit" class="popup__submit-button">Сохранить</button> 
+        </form>  
+      </div>
+    </section>  
     <section class="popup" id="newplace-popup">
       <div class="popup__container">
         <button type="button" class="popup__close-button"></button>
