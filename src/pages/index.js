@@ -44,9 +44,30 @@ const api = new Api ({
 const picturePopup = new PopupWithImage (picturePopupSelector)
 picturePopup.setEventListeners();
 
+function addCardLike (cardId, likesArray, likesCounter) {
+  return api.addLike(cardId)
+  .then(res => console.log(res))
+  .catch(err => console.log(err))
+}
+
+function removeCardLike (cardId) {
+  return api.removeLike(cardId)
+  .then(res => console.log(res))
+  .catch(err => console.log(err))
+}
+
+
 // создаем функцию создания новой карточки
 const createNewCard = (item, userId) => {
-  const newCard = new Card ( item, userId, cardTemplateElement, picturePopup.openPicturePopup, handleCardDeleteClick)
+  const newCard = new Card (
+    item,
+    userId,
+    cardTemplateElement,
+    picturePopup.openPicturePopup,
+    handleCardDeleteClick,
+    addCardLike,
+    removeCardLike
+    )
   return newCard.createCard();
 }
 // создаем функции для рендера и добавления карточек
