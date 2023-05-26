@@ -11,6 +11,7 @@ const validationConfig = {
 const cardsSectionSelector = '.elements'
 const cardTemplateElement = '#card-template';
 const newPlacePopupSelector = '#newplace-popup';
+const newPlaceDeletePopupSelector = '#delete-newplace-popup';
 const profilePopupSelector = '#profile-popup';
 const profileAvatarPopupSelector = '#profile-avatar-popup';
 const picturePopupSelector = '#picture-popup';
@@ -36,6 +37,7 @@ export {
   cardsSectionSelector,
   cardTemplateElement,
   newPlacePopupSelector,
+  newPlaceDeletePopupSelector,
   profilePopupSelector,
   profileAvatarPopupSelector,
   profileNameSelector,

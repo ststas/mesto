@@ -5,6 +5,7 @@ import {
   cardsSectionSelector,
   cardTemplateElement,
   newPlacePopupSelector,
+  newPlaceDeletePopupSelector,
   profilePopupSelector,
   profileAvatarPopupSelector,
   profileNameSelector,
@@ -24,11 +25,12 @@ import Card from "../scripts/components/Card.js"
 import FormValidator from "../scripts/components/FormValidator.js"
 import PopupWithForm from "../scripts/components/PopupWithForm.js"
 import PopupWithImage from "../scripts/components/PopupWithImage.js"
+import PopupCardDelete from "../scripts/components/PopupCardDelete.js"
 import Section from "../scripts/components/Section.js"
 import UserInfo from "../scripts/components/UserInfo.js"
 import Api from "../scripts/components/Api.js"
 
-//создаем класс API
+// создаем класс API
 const api = new Api ({
   apiUrl: 'https://mesto.nomoreparties.co/v1/cohort-66',
   headers: {
@@ -37,34 +39,34 @@ const api = new Api ({
   }
 })
 
-
 // КАРТОЧКИ
-// создаем класс для попапа с картинкой и устанавливаем слуша
+// создаем класс для попапа с картинкой и устанавливаем слушатели
 const picturePopup = new PopupWithImage (picturePopupSelector)
 picturePopup.setEventListeners();
 
+// создаем функцию создания новой карточки
 const createNewCard = (item, userId) => {
-  const newCard = new Card ( item, userId, cardTemplateElement, picturePopup.openPicturePopup )
+  const newCard = new Card ( item, userId, cardTemplateElement, picturePopup.openPicturePopup, handleCardDeleteClick)
   return newCard.createCard();
 }
-
-// создаем функции для создания и добавления карточки нового места
+// создаем функции для рендера и добавления карточек
+// cardRenderer используется для отрисовки карточек с сервера
 const cardRenderer = (data, userId) =>  {
-const section = new Section ( {items: data, renderer: createNewCard}, userId, cardsSectionSelector )
-section.renderItems()
+  const section = new Section ( {items: data, renderer: createNewCard}, userId, cardsSectionSelector )
+  section.renderItems()
 }
-const handlerCardRender = (data, userId) =>  {
+// handleCardRenderer используется для отрисовки карточки при ее добавлении через попап
+const handleCardRenderer = (data, userId) =>  {
   const section = new Section ( {items: [data], renderer: createNewCard}, userId, cardsSectionSelector )
   section.addItemPrepend(data, userId)
   }
-
-// создаем попап для создания и добавления карточки нового места
+// создаем попап для создания и добавления карточки
 const newPlacePopup = new PopupWithForm({
   popupSelector: newPlacePopupSelector, 
   handlePopupFormSubmit: (data) => {
     Promise.all([api.getUserInfo(), api.addCard(data)])
       .then(([userData, cardData]) => {
-        handlerCardRender(cardData, userData._id)
+        handleCardRenderer(cardData, userData._id)
       })
       .catch(err => console.error(`Ошибка добавления карточки: ${err}`))
       .finally() 
@@ -72,13 +74,30 @@ const newPlacePopup = new PopupWithForm({
   }
 })
 newPlacePopup.setEventListeners()
-
+// создаем попап для удаления карточки и устанавливаем слушатели
+const cardDeletePopup = new PopupCardDelete ({
+  popupSelector: newPlaceDeletePopupSelector, 
+  handlePopupFormSubmit: (cardToDelete, cardId) => {
+    api.removeCard(cardId)
+      .then(()=> {
+        cardToDelete.remove()
+        cardToDelete = null;
+        cardDeletePopup.closePopup()
+      })
+      .catch(err => console.error(`Ошибка удаления карточки: ${err}`))
+      .finally()
+  }
+})
+cardDeletePopup.setEventListeners()
+// создаем функцию для удаления карточки
+function handleCardDeleteClick (event, cardId) {
+  cardDeletePopup.openCardDeletePopup(event.target.closest('.element'), cardId)
+}
 
 // ПРОФИЛЬ
-// создаем класс для профиля пользователя.
+// создаем класс профиля пользователя.
 const profileInfo = new UserInfo({profileNameSelector, profileOccupationSelector, profileAvatarSelector })
-
-// создаем класс для попапа редактирования профайла
+// создаем класс попапа редактирования профайла
 const profilePopup = new PopupWithForm({
   popupSelector: profilePopupSelector,
   handlePopupFormSubmit: (data) => {
@@ -90,8 +109,7 @@ const profilePopup = new PopupWithForm({
   }
 })
 profilePopup.setEventListeners()
-
-// создаем класс для попапа редактирования аватара профайла
+// создаем класс попапа редактирования аватара профайла
 const profileAvatarPopup = new PopupWithForm({
   popupSelector: profileAvatarPopupSelector,
   handlePopupFormSubmit: (data) => {
@@ -112,14 +130,12 @@ profilePopupFormValidator.enableValidation();
 // создаем класс для валидации формы аватара профиля 
 const profileAvatarPopupFormValidator = new FormValidator(validationConfig, profileAvatarFormElement);
 profileAvatarPopupFormValidator.enableValidation();
-console.log(profileAvatarPopupFormValidator)
 
 // создаем класс для валидации формы добавления новой карточки места
 const newPlacePopupFormValidator = new FormValidator(validationConfig, newPlacePopupFormElement);
 newPlacePopupFormValidator.enableValidation();
 
 // ОБРАБОТЧИКИ СОБЫТИЙ ДЛЯ КНОПОК ПРОФИЛЯ
-
 // кнопка редактирования профиля
 profileEditButtonElement.addEventListener('click', function () {
   profilePopupFormValidator.resetErrorsOnInputFields();
@@ -132,14 +148,14 @@ profileAvatarEditButtonElement.addEventListener('click', function () {
   profileAvatarPopup.openPopup();
 
 })
-
 // кнопка добавления карточки нового места
 profileAddButtonElement.addEventListener('click', function () {
   newPlacePopupFormValidator.resetErrorsOnInputFields();
   newPlacePopup.openPopup();
 });
 
-
+// ПОЛУЧЕНИЕ ДАННЫХ
+// загрузка карточек и профиля с сервера
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cardsData]) => {
     profileInfo.setUserInfo(userData);
