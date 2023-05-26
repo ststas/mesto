@@ -40,24 +40,31 @@ const api = new Api ({
 })
 
 // КАРТОЧКИ
-// создаем класс для попапа с картинкой и устанавливаем слушатели
+// попап с картинкой и устанавка слушателей
 const picturePopup = new PopupWithImage (picturePopupSelector)
 picturePopup.setEventListeners();
 
+// функции добавления и удаления лайка карточки
 function addCardLike (cardId, likesArray, likesCounter) {
   return api.addLike(cardId)
-  .then(res => console.log(res))
+  .then(res => {
+    likesArray = res.likes
+    likesCounter.textContent = likesArray.length
+  })
   .catch(err => console.log(err))
+  .finally()
 }
-
-function removeCardLike (cardId) {
+function removeCardLike (cardId, likesArray, likesCounter) {
   return api.removeLike(cardId)
-  .then(res => console.log(res))
+  .then(res => {
+    likesArray = res.likes
+    likesCounter.textContent = likesArray.length
+  })
   .catch(err => console.log(err))
+  .finally()
 }
 
-
-// создаем функцию создания новой карточки
+// функция создания новой карточки
 const createNewCard = (item, userId) => {
   const newCard = new Card (
     item,
@@ -70,7 +77,7 @@ const createNewCard = (item, userId) => {
     )
   return newCard.createCard();
 }
-// создаем функции для рендера и добавления карточек
+// функции рендера и добавления карточек
 // cardRenderer используется для отрисовки карточек с сервера
 const cardRenderer = (data, userId) =>  {
   const section = new Section ( {items: data, renderer: createNewCard}, userId, cardsSectionSelector )
@@ -81,7 +88,7 @@ const handleCardRenderer = (data, userId) =>  {
   const section = new Section ( {items: [data], renderer: createNewCard}, userId, cardsSectionSelector )
   section.addItemPrepend(data, userId)
   }
-// создаем попап для создания и добавления карточки
+// попап рендера и добавления карточки и устанавка слушателей
 const newPlacePopup = new PopupWithForm({
   popupSelector: newPlacePopupSelector, 
   handlePopupFormSubmit: (data) => {
@@ -95,7 +102,7 @@ const newPlacePopup = new PopupWithForm({
   }
 })
 newPlacePopup.setEventListeners()
-// создаем попап для удаления карточки и устанавливаем слушатели
+// попап удаления карточки и устанавка слушателей
 const cardDeletePopup = new PopupCardDelete ({
   popupSelector: newPlaceDeletePopupSelector, 
   handlePopupFormSubmit: (cardToDelete, cardId) => {
@@ -110,15 +117,15 @@ const cardDeletePopup = new PopupCardDelete ({
   }
 })
 cardDeletePopup.setEventListeners()
-// создаем функцию для удаления карточки
+// функция удаления карточки
 function handleCardDeleteClick (event, cardId) {
   cardDeletePopup.openCardDeletePopup(event.target.closest('.element'), cardId)
 }
 
 // ПРОФИЛЬ
-// создаем класс профиля пользователя.
+// класс профиля пользователя.
 const profileInfo = new UserInfo({profileNameSelector, profileOccupationSelector, profileAvatarSelector })
-// создаем класс попапа редактирования профайла
+// класс попапа редактирования профайла
 const profilePopup = new PopupWithForm({
   popupSelector: profilePopupSelector,
   handlePopupFormSubmit: (data) => {
@@ -130,7 +137,7 @@ const profilePopup = new PopupWithForm({
   }
 })
 profilePopup.setEventListeners()
-// создаем класс попапа редактирования аватара профайла
+// класс попапа редактирования аватара профайла
 const profileAvatarPopup = new PopupWithForm({
   popupSelector: profileAvatarPopupSelector,
   handlePopupFormSubmit: (data) => {
@@ -144,15 +151,15 @@ const profileAvatarPopup = new PopupWithForm({
 profileAvatarPopup.setEventListeners()
 
 // ВАЛИДАЦИЯ
-// создаем класс для валидации формы профиля
+// класс валидации формы профиля
 const profilePopupFormValidator = new FormValidator(validationConfig, profilePopupFormElement);
 profilePopupFormValidator.enableValidation();
 
-// создаем класс для валидации формы аватара профиля 
+// класс валидации формы аватара профиля 
 const profileAvatarPopupFormValidator = new FormValidator(validationConfig, profileAvatarFormElement);
 profileAvatarPopupFormValidator.enableValidation();
 
-// создаем класс для валидации формы добавления новой карточки места
+// класс валидации формы добавления новой карточки места
 const newPlacePopupFormValidator = new FormValidator(validationConfig, newPlacePopupFormElement);
 newPlacePopupFormValidator.enableValidation();
 
@@ -163,7 +170,7 @@ profileEditButtonElement.addEventListener('click', function () {
   profilePopup.setInputValues(profileInfo.getUserInfo())
   profilePopup.openPopup();
 })
-//кнопка редактирования аватара
+// кнопка редактирования аватара
 profileAvatarEditButtonElement.addEventListener('click', function () {
   profileAvatarPopupFormValidator.resetErrorsOnInputFields();
   profileAvatarPopup.openPopup();

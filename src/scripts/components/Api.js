@@ -29,6 +29,7 @@ export default class Api {
     .then(this._getRes)
     .catch(err => console.error(`Error: ${err}`))
   }
+  
   setUserAvatar(userData) {
     return fetch(`${this._apiUrl}/users/me/avatar`, {
       method: 'PATCH',

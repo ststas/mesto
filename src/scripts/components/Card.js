@@ -42,7 +42,7 @@ createCard () {
   this._setEventListeners()   
   return this._element;
 }  
-// функция установки слушателей на кнопки и изображение карточки
+// установкв слушателей на кнопки и изображение карточки
   _setEventListeners () {
     this._likes.forEach(like => {
       if(like._id === this._userId) {
@@ -73,9 +73,4 @@ createCard () {
     else 
       {this._removeCardLike(this._cardId, this._likes, this._likesCounter)}
   }
-// // функция удаления карточки
-//   _deleteCard = () => {
-//       this._element.remove();
-//       this._element = null;
-//   }
 }
