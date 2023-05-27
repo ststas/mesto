@@ -6,11 +6,11 @@ export default class PopupCardDelete extends Popup {
     this._form = this._popup.querySelector('.popup__form');
     this._handlePopupFormSubmit = handlePopupFormSubmit;
   }
-//функция открытия попапа с передачей карточки для удаления и ее идентификатора
-  openCardDeletePopup(cardToDelete, cardId) {    
-    super.openPopup()
+// функция открытия попапа с передачей карточки для удаления и ее идентификатора
+  openCardDeletePopup(cardToDelete, cardId) {
     this._cardToDelete = cardToDelete
     this._cardId = cardId
+    super.openPopup()
   }
 // установка слушателей
   setEventListeners(){

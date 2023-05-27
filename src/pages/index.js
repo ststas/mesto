@@ -25,7 +25,7 @@ import Card from "../scripts/components/Card.js"
 import FormValidator from "../scripts/components/FormValidator.js"
 import PopupWithForm from "../scripts/components/PopupWithForm.js"
 import PopupWithImage from "../scripts/components/PopupWithImage.js"
-import PopupCardDelete from "../scripts/components/PopupCardDelete.js"
+import PopupCardDelete from "../scripts/components/PopupWithConfirmation.js"
 import Section from "../scripts/components/Section.js"
 import UserInfo from "../scripts/components/UserInfo.js"
 import Api from "../scripts/components/Api.js"
@@ -51,7 +51,7 @@ function addCardLike (cardId, likesArray, likesCounter) {
     likesArray = res.likes
     likesCounter.textContent = likesArray.length
   })
-  .catch(err => console.log(err))
+  .catch(err => onsole.error(`Ошибка добавления лайка карточки: ${err}`))
   .finally()
 }
 function removeCardLike (cardId, likesArray, likesCounter) {
@@ -60,7 +60,7 @@ function removeCardLike (cardId, likesArray, likesCounter) {
     likesArray = res.likes
     likesCounter.textContent = likesArray.length
   })
-  .catch(err => console.log(err))
+  .catch(err => onsole.error(`Ошибка снятия лайка карточки: ${err}`))
   .finally()
 }
 
@@ -94,11 +94,11 @@ const newPlacePopup = new PopupWithForm({
   handlePopupFormSubmit: (data) => {
     Promise.all([api.getUserInfo(), api.addCard(data)])
       .then(([userData, cardData]) => {
-        handleCardRenderer(cardData, userData._id)
+        handleCardRenderer(cardData, userData._id);
+        newPlacePopup.closePopup()
       })
       .catch(err => console.error(`Ошибка добавления карточки: ${err}`))
-      .finally() 
-      newPlacePopup.closePopup()
+      .finally(()=> newPlacePopup.renderLoadingCreate())  
   }
 })
 newPlacePopup.setEventListeners()
@@ -113,7 +113,6 @@ const cardDeletePopup = new PopupCardDelete ({
         cardDeletePopup.closePopup()
       })
       .catch(err => console.error(`Ошибка удаления карточки: ${err}`))
-      .finally()
   }
 })
 cardDeletePopup.setEventListeners()
@@ -130,10 +129,13 @@ const profilePopup = new PopupWithForm({
   popupSelector: profilePopupSelector,
   handlePopupFormSubmit: (data) => {
     api.setUserInfo(data)
-      .then(data => profileInfo.setUserInfo(data))
+      .then(data => {
+        profileInfo.setUserInfo(data);
+        profilePopup.closePopup();
+      })
       .catch(err => console.error(`Ошибка редактирования профиля: ${err}`))
-      .finally()
-    profilePopup.closePopup()
+      .finally(()=> profilePopup.renderLoadingSave(false))
+    
   }
 })
 profilePopup.setEventListeners()
@@ -142,10 +144,12 @@ const profileAvatarPopup = new PopupWithForm({
   popupSelector: profileAvatarPopupSelector,
   handlePopupFormSubmit: (data) => {
     api.setUserAvatar(data)
-      .then(data => profileInfo.setUserInfo(data))
-      .catch(err => console.error(`Ошибка редактирования профиля: ${err}`))
-      .finally()
-      profileAvatarPopup.closePopup()
+      .then(data => {
+        profileInfo.setUserInfo(data);
+        profileAvatarPopup.closePopup();
+      })
+      .catch(err => console.error(`Ошибка редактирования аватара профиля: ${err}`))
+      .finally(()=> profileAvatarPopup.renderLoadingSave(false))
   }
 })
 profileAvatarPopup.setEventListeners()

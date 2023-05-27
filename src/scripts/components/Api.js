@@ -3,20 +3,19 @@ export default class Api {
     this._apiUrl = data.apiUrl;
     this._headers = data.headers
   }
-
+  // функция получения респонса и его преобразования в объект
   _getRes(res) {
     return (res.ok ? res.json() : Promise.reject(`Error: ${res.status}`))
   }
-
+  // функция получения информации пользователя
   getUserInfo() {
     return fetch(`${this._apiUrl}/users/me`, {
       method: 'GET',
       headers: this._headers
     })
     .then(this._getRes)
-    .catch(err => console.error(`Error: ${err}`))
   }
-
+  // функция установки новой информации пользователя
   setUserInfo(userData) {
     return fetch(`${this._apiUrl}/users/me`, {
       method: 'PATCH',
@@ -27,9 +26,8 @@ export default class Api {
       })     
     })
     .then(this._getRes)
-    .catch(err => console.error(`Error: ${err}`))
   }
-  
+  // функция установки нового аватара пользователя
   setUserAvatar(userData) {
     return fetch(`${this._apiUrl}/users/me/avatar`, {
       method: 'PATCH',
@@ -39,18 +37,16 @@ export default class Api {
       })     
     })
     .then(this._getRes)
-    .catch(err => console.error(`Error: ${err}`))
   }
- 
+  // функция получения информации о карточках
   getInitialCards() {
     return fetch(`${this._apiUrl}/cards`, {
       method: 'GET',
       headers: this._headers
     })
     .then(this._getRes)
-    .catch(err => console.error(`Error: ${err}`))
   }
-
+  // функция добавления новой карточки
   addCard(cardData) {
     return fetch(`${this._apiUrl}/cards`, {
       method: 'POST',
@@ -61,33 +57,29 @@ export default class Api {
       })     
     })
     .then(this._getRes)
-    .catch(err => console.error(`Error: ${err}`))
   }
-
+  // функция добавления новой карточки
   removeCard(idCard) {
     return fetch(`${this._apiUrl}/cards/${idCard}`, {
       method: 'DELETE',
       headers: this._headers,
     })
     .then(this._getRes)
-    .catch(err => console.error(`Error: ${err}`))
   }
-
+  // функция добавления лайка карточки
   addLike(idCard) {
     return fetch(`${this._apiUrl}/cards/${idCard}/likes`, {
       method: 'PUT',
       headers: this._headers,
     })
     .then(this._getRes)
-    .catch(err => console.error(`Error: ${err}`))
   }
-
+  // функция удаления лайка карточки
   removeLike(idCard) {
     return fetch(`${this._apiUrl}/cards/${idCard}/likes`, {
       method: 'DELETE',
       headers: this._headers,
     })
     .then(this._getRes)
-    .catch(err => console.log(`Error: ${err}`))
   }
 }
