@@ -42,7 +42,7 @@ createCard () {
   this._setEventListeners()   
   return this._element;
 }  
-// установкв слушателей на кнопки и изображение карточки
+// установка слушателей на кнопки и изображение карточки
   _setEventListeners () {
     this._likes.forEach(like => {
       if(like._id === this._userId) {
@@ -50,7 +50,7 @@ createCard () {
       }
       })
     this._likeButton.addEventListener('click', () => {
-      this._likeCard();
+      this._likeCard(this);
     })
 
     if(this._ownerId === this._userId){
@@ -67,10 +67,9 @@ createCard () {
   }  
 // функция лайка карточки
   _likeCard = () => {
-    this._likeButton.classList.toggle('element__heart-button_active')
     if(this._likeButton.classList.contains('element__heart-button_active')) 
-      {this._addCardLike(this._cardId, this._likes, this._likesCounter)}
+    {this._removeCardLike(this)}
     else 
-      {this._removeCardLike(this._cardId, this._likes, this._likesCounter)}
+      {this._addCardLike(this)}
   }
 }

@@ -3,21 +3,21 @@ export default class Api {
     this._apiUrl = data.apiUrl;
     this._headers = data.headers
   }
-  // функция получения респонса и его преобразования в объект
+  // функция получения ответа и преобразования его в объект
   _getRes(res) {
     return (res.ok ? res.json() : Promise.reject(`Error: ${res.status}`))
   }
+  // функция отправки fetch запроса
+  _request (url, options) {
+    return fetch(`${this._apiUrl}/${url}`, options).then(this._getRes)
+  }
   // функция получения информации пользователя
   getUserInfo() {
-    return fetch(`${this._apiUrl}/users/me`, {
-      method: 'GET',
-      headers: this._headers
-    })
-    .then(this._getRes)
+    return this._request(`users/me`, {method: 'GET', headers: this._headers})
   }
   // функция установки новой информации пользователя
   setUserInfo(userData) {
-    return fetch(`${this._apiUrl}/users/me`, {
+    return this._request(`users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
@@ -25,30 +25,27 @@ export default class Api {
         about: userData.about
       })     
     })
-    .then(this._getRes)
   }
   // функция установки нового аватара пользователя
   setUserAvatar(userData) {
-    return fetch(`${this._apiUrl}/users/me/avatar`, {
+    return this._request(`users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
         avatar: userData.avatar,
       })     
     })
-    .then(this._getRes)
   }
   // функция получения информации о карточках
   getInitialCards() {
-    return fetch(`${this._apiUrl}/cards`, {
+    return this._request(`cards`, {
       method: 'GET',
       headers: this._headers
     })
-    .then(this._getRes)
   }
   // функция добавления новой карточки
   addCard(cardData) {
-    return fetch(`${this._apiUrl}/cards`, {
+    return this._request(`cards`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
@@ -56,30 +53,26 @@ export default class Api {
         link: cardData.link
       })     
     })
-    .then(this._getRes)
   }
   // функция добавления новой карточки
   removeCard(idCard) {
-    return fetch(`${this._apiUrl}/cards/${idCard}`, {
+    return this._request(`cards/${idCard}`, {
       method: 'DELETE',
       headers: this._headers,
     })
-    .then(this._getRes)
   }
   // функция добавления лайка карточки
   addLike(idCard) {
-    return fetch(`${this._apiUrl}/cards/${idCard}/likes`, {
+    return this._request(`cards/${idCard}/likes`, {
       method: 'PUT',
       headers: this._headers,
     })
-    .then(this._getRes)
   }
   // функция удаления лайка карточки
   removeLike(idCard) {
-    return fetch(`${this._apiUrl}/cards/${idCard}/likes`, {
+    return this._request(`cards/${idCard}/likes`, {
       method: 'DELETE',
       headers: this._headers,
     })
-    .then(this._getRes)
   }
 }

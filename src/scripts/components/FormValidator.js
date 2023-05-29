@@ -37,15 +37,17 @@ export default class FormValidator {
   }
 // функция показа ошибки
   _showErrorMessageAndRedUnderline () {
-    this._formElement.querySelector(`#${this._inputField.id}-error`).classList.add(this._errorClass);
-    this._formElement.querySelector(`#${this._inputField.id}-error`).textContent = this._inputField.validationMessage;
-    this._formElement.querySelector(`#${this._inputField.id}`).classList.add(this._inputErrorClass);
+    this._error = this._formElement.querySelector(`#${this._inputField.id}-error`);
+    this._error.classList.add(this._errorClass);
+    this._error.textContent = this._inputField.validationMessage;
+    this._inputField.classList.add(this._inputErrorClass);
   }
 // функция отмены ошибки
   _removeErrorMessageAndRedUnderline () {
-    this._formElement.querySelector(`#${this._inputField.id}-error`).classList.remove(this._errorClass);
-    this._formElement.querySelector(`#${this._inputField.id}-error`).textContent = '';
-    this._formElement.querySelector(`#${this._inputField.id}`).classList.remove(this._inputErrorClass);
+    this._error = this._formElement.querySelector(`#${this._inputField.id}-error`);
+    this._error.classList.remove(this._errorClass);
+    this._error.textContent = '';
+    this._inputField.classList.remove(this._inputErrorClass);
   }
 // функции статуса кнопки submit
   _enableButton () {

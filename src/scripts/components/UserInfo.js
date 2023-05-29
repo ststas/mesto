@@ -17,5 +17,10 @@ export default class UserInfo {
     if(userData.name)this._profileName.textContent = userData.name;
     if(userData.about)this._profileOccupation.textContent = userData.about;
     if(userData.avatar){this._profileAvatar.src = userData.avatar};
+    if(userData._id){this._userId = userData._id}
+  }
+
+  getUserId () {
+    return this._userId
   }
 }

@@ -38,34 +38,70 @@ const api = new Api ({
     'Content-Type': 'application/json'
   }
 })
+// универсальная функция-обработчик для попапов
+function handleSubmit(request, popupInstance, loadingText) {
+  popupInstance.renderLoading(true, loadingText);
+  request()
+    .then(() => {popupInstance.closePopup()})
+    .catch((err) => {console.error(`Ошибка: ${err}`)})
+    .finally(() => {popupInstance.renderLoading(false)});
+}
+
+// ПРОФИЛЬ
+// класс профиля пользователя.
+const profileInfo = new UserInfo({profileNameSelector, profileOccupationSelector, profileAvatarSelector })
+
+// класс попапа редактирования профайла
+const profilePopup = new PopupWithForm({
+  popupSelector: profilePopupSelector,
+  handlePopupFormSubmit: (inputValues) => {
+    function makeRequest() {
+      return api.setUserInfo(inputValues)
+        .then((userData) => {profileInfo.setUserInfo(userData)});
+    }
+    handleSubmit(makeRequest, profilePopup, "Сохранение...");
+  }
+})
+profilePopup.setEventListeners()
+// класс попапа редактирования аватара профайла
+const profileAvatarPopup = new PopupWithForm({
+  popupSelector: profileAvatarPopupSelector,
+  handlePopupFormSubmit: (inputValues) => {
+    function makeRequest() {
+      return api.setUserAvatar(inputValues)
+        .then((userData) => {profileInfo.setUserInfo(userData)});
+    }
+    handleSubmit(makeRequest, profileAvatarPopup, "Сохранение...");
+  }
+})
+profileAvatarPopup.setEventListeners()
 
 // КАРТОЧКИ
 // попап с картинкой и устанавка слушателей
 const picturePopup = new PopupWithImage (picturePopupSelector)
 picturePopup.setEventListeners();
-
-// функции добавления и удаления лайка карточки
-function addCardLike (cardId, likesArray, likesCounter) {
-  return api.addLike(cardId)
+// функции добавления лайка карточки
+function addCardLike (card) {
+  return api.addLike(card._cardId)
   .then(res => {
-    likesArray = res.likes
-    likesCounter.textContent = likesArray.length
+    card._likeButton.classList.toggle('element__heart-button_active')
+    card._likes = res.likes
+    card._likesCounter.textContent = card._likes.length
   })
-  .catch(err => onsole.error(`Ошибка добавления лайка карточки: ${err}`))
-  .finally()
+  .catch(err => console.error(`Ошибка добавления лайка карточки: ${err}`))
 }
-function removeCardLike (cardId, likesArray, likesCounter) {
-  return api.removeLike(cardId)
+// функции удаления лайка карточки
+function removeCardLike (card) {
+  return api.removeLike(card._cardId)
   .then(res => {
-    likesArray = res.likes
-    likesCounter.textContent = likesArray.length
+    card._likeButton.classList.toggle('element__heart-button_active')
+    card._likes = res.likes
+    card._likesCounter.textContent = card._likes.length
   })
-  .catch(err => onsole.error(`Ошибка снятия лайка карточки: ${err}`))
-  .finally()
+  .catch(err => console.error(`Ошибка снятия лайка карточки: ${err}`))
 }
-
 // функция создания новой карточки
-const createNewCard = (item, userId) => {
+function createNewCard (item, userId) {
   const newCard = new Card (
     item,
     userId,
@@ -77,42 +113,35 @@ const createNewCard = (item, userId) => {
     )
   return newCard.createCard();
 }
-// функции рендера и добавления карточек
-// cardRenderer используется для отрисовки карточек с сервера
-const cardRenderer = (data, userId) =>  {
+// функция рендера и добавления карточек
+function cardRenderer (data, userId, method) {
   const section = new Section ( {items: data, renderer: createNewCard}, userId, cardsSectionSelector )
-  section.renderItems()
+  section.renderItems(data, userId, method)
 }
-// handleCardRenderer используется для отрисовки карточки при ее добавлении через попап
-const handleCardRenderer = (data, userId) =>  {
-  const section = new Section ( {items: [data], renderer: createNewCard}, userId, cardsSectionSelector )
-  section.addItemPrepend(data, userId)
-  }
-// попап рендера и добавления карточки и устанавка слушателей
+// попап рендера и добавления карточки и установка слушателей
 const newPlacePopup = new PopupWithForm({
   popupSelector: newPlacePopupSelector, 
-  handlePopupFormSubmit: (data) => {
-    Promise.all([api.getUserInfo(), api.addCard(data)])
-      .then(([userData, cardData]) => {
-        handleCardRenderer(cardData, userData._id);
-        newPlacePopup.closePopup()
-      })
-      .catch(err => console.error(`Ошибка добавления карточки: ${err}`))
-      .finally(()=> newPlacePopup.renderLoadingCreate())  
-  }
+  handlePopupFormSubmit: (inputValues) => {
+    function makeRequest() {
+      return api.addCard(inputValues)
+        .then((cardDataRes) => {cardRenderer(cardDataRes, profileInfo.getUserId(), 'prepend' )});
+    }
+    handleSubmit(makeRequest, newPlacePopup, "Создаем...");
+  } 
 })
 newPlacePopup.setEventListeners()
 // попап удаления карточки и устанавка слушателей
 const cardDeletePopup = new PopupCardDelete ({
   popupSelector: newPlaceDeletePopupSelector, 
   handlePopupFormSubmit: (cardToDelete, cardId) => {
-    api.removeCard(cardId)
-      .then(()=> {
-        cardToDelete.remove()
-        cardToDelete = null;
-        cardDeletePopup.closePopup()
-      })
-      .catch(err => console.error(`Ошибка удаления карточки: ${err}`))
+    function makeRequest() {
+      return api.removeCard(cardId)
+        .then(() => {
+          cardToDelete.remove();
+          cardToDelete = null
+        })
+    }
+    handleSubmit(makeRequest, cardDeletePopup, "Удаление...");
   }
 })
 cardDeletePopup.setEventListeners()
@@ -120,39 +149,6 @@ cardDeletePopup.setEventListeners()
 function handleCardDeleteClick (event, cardId) {
   cardDeletePopup.openCardDeletePopup(event.target.closest('.element'), cardId)
 }
-
-// ПРОФИЛЬ
-// класс профиля пользователя.
-const profileInfo = new UserInfo({profileNameSelector, profileOccupationSelector, profileAvatarSelector })
-// класс попапа редактирования профайла
-const profilePopup = new PopupWithForm({
-  popupSelector: profilePopupSelector,
-  handlePopupFormSubmit: (data) => {
-    api.setUserInfo(data)
-      .then(data => {
-        profileInfo.setUserInfo(data);
-        profilePopup.closePopup();
-      })
-      .catch(err => console.error(`Ошибка редактирования профиля: ${err}`))
-      .finally(()=> profilePopup.renderLoadingSave(false))
-    
-  }
-})
-profilePopup.setEventListeners()
-// класс попапа редактирования аватара профайла
-const profileAvatarPopup = new PopupWithForm({
-  popupSelector: profileAvatarPopupSelector,
-  handlePopupFormSubmit: (data) => {
-    api.setUserAvatar(data)
-      .then(data => {
-        profileInfo.setUserInfo(data);
-        profileAvatarPopup.closePopup();
-      })
-      .catch(err => console.error(`Ошибка редактирования аватара профиля: ${err}`))
-      .finally(()=> profileAvatarPopup.renderLoadingSave(false))
-  }
-})
-profileAvatarPopup.setEventListeners()
 
 // ВАЛИДАЦИЯ
 // класс валидации формы профиля
@@ -191,6 +187,8 @@ profileAddButtonElement.addEventListener('click', function () {
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cardsData]) => {
     profileInfo.setUserInfo(userData);
-    cardRenderer(cardsData, userData._id);
+    profileInfo.getUserId()
+    cardRenderer(cardsData, userData._id, 'append');
   })
   .catch(err => console.error(`Ошибка загрузки данных с сервера: ${err}`))
+  

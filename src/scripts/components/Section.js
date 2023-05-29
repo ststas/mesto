@@ -5,15 +5,12 @@ export default class Section {
     this._userId = userId
     this._container = document.querySelector(selector);
   }
-  // функции добавления карточки
-  addItemPrepend(element, userId) {
-    this._container.prepend(this._renderer(element, userId));
+  // функции добавления карточек
+  renderItems(data, userId, method) {
+    if(method === "append") {
+      this._items.forEach((item) => {this._container.append(this._renderer(item, userId))})}
+    else {
+      this._container.prepend(this._renderer(data, userId))}
   }
-  addItemAppend(element, userId) {
-    this._container.append(this._renderer(element, userId));
-  }
-  // заполенение карточками из массива c сервера
-  renderItems() {
-    this._items.forEach((item) => {this.addItemAppend(item, this._userId)})
-  }
+
 }
