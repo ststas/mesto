@@ -31,5 +31,4 @@ export default class PopupCardDelete extends Popup {
       this._handlePopupFormSubmit(this._cardToDelete, this._cardId)
     })
   }
-
 }

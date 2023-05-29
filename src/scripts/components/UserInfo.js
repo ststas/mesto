@@ -19,7 +19,7 @@ export default class UserInfo {
     if(userData.avatar){this._profileAvatar.src = userData.avatar};
     if(userData._id){this._userId = userData._id}
   }
-
+  // функция возврата id пользователя
   getUserId () {
     return this._userId
   }

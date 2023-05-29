@@ -12,5 +12,4 @@ export default class Section {
     else {
       this._container.prepend(this._renderer(data, userId))}
   }
-
 }
