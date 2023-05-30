@@ -42,7 +42,7 @@ const api = new Api ({
 function handleSubmit(request, popupInstance, loadingText) {
   popupInstance.renderLoading(true, loadingText);
   request()
-    .then(() => {popupInstance.closePopup()})
+    .then(() => popupInstance.closePopup())
     .catch((err) => {console.error(`Ошибка: ${err}`)})
     .finally(() => {popupInstance.renderLoading(false)});
 }
@@ -57,7 +57,7 @@ const profilePopup = new PopupWithForm({
   handlePopupFormSubmit: (inputValues) => {
     function makeRequest() {
       return api.setUserInfo(inputValues)
-        .then((userData) => {profileInfo.setUserInfo(userData)});
+        .then(userData => profileInfo.setUserInfo(userData));
     }
     handleSubmit(makeRequest, profilePopup, "Сохранение...");
   }
@@ -69,7 +69,7 @@ const profileAvatarPopup = new PopupWithForm({
   handlePopupFormSubmit: (inputValues) => {
     function makeRequest() {
       return api.setUserAvatar(inputValues)
-        .then((userData) => {profileInfo.setUserInfo(userData)});
+        .then(userData => profileInfo.setUserInfo(userData));
     }
     handleSubmit(makeRequest, profileAvatarPopup, "Сохранение...");
   }
@@ -81,23 +81,16 @@ profileAvatarPopup.setEventListeners()
 const picturePopup = new PopupWithImage (picturePopupSelector)
 picturePopup.setEventListeners();
 // функции добавления лайка карточки
+
 function addCardLike (card) {
   return api.addLike(card._cardId)
-  .then(res => {
-    card._likeButton.classList.toggle('element__heart-button_active')
-    card._likes = res.likes
-    card._likesCounter.textContent = card._likes.length
-  })
+  .then(likedCard => card.updateLikes(likedCard))
   .catch(err => console.error(`Ошибка добавления лайка карточки: ${err}`))
 }
 // функции удаления лайка карточки
 function removeCardLike (card) {
   return api.removeLike(card._cardId)
-  .then(res => {
-    card._likeButton.classList.toggle('element__heart-button_active')
-    card._likes = res.likes
-    card._likesCounter.textContent = card._likes.length
-  })
+  .then(likedCard => card.updateLikes(likedCard))
   .catch(err => console.error(`Ошибка снятия лайка карточки: ${err}`))
 }
 // функция создания новой карточки
@@ -124,7 +117,7 @@ const newPlacePopup = new PopupWithForm({
   handlePopupFormSubmit: (inputValues) => {
     function makeRequest() {
       return api.addCard(inputValues)
-        .then((cardDataRes) => {cardRenderer(cardDataRes, profileInfo.getUserId(), 'prepend' )});
+        .then(cardDataRes => cardRenderer(cardDataRes, profileInfo.getUserId(), 'prepend' ));
     }
     handleSubmit(makeRequest, newPlacePopup, "Создаем...");
   } 

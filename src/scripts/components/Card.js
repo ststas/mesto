@@ -64,6 +64,11 @@ createCard () {
     this._element.querySelector('.element__image').addEventListener('click', () => {
       this._handleCardClick(this._title, this._image);
     })
+  }
+  updateLikes(likedCard) {
+    this._likeButton.classList.toggle('element__heart-button_active')
+    this._likes = likedCard.likes
+    this._likesCounter.textContent = this._likes.length
   }  
 // функция лайка карточки
   _likeCard = () => {
