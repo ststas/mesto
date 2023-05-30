@@ -180,7 +180,7 @@ profileAddButtonElement.addEventListener('click', function () {
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cardsData]) => {
     profileInfo.setUserInfo(userData);
-    cardRenderer(cardsData, profileInfo.getUserId(), 'append');
+    cardRenderer(cardsData, userData._id, 'append');
   })
   .catch(err => console.error(`Ошибка загрузки данных с сервера: ${err}`))
   
