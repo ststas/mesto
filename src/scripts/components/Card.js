@@ -65,6 +65,7 @@ createCard () {
       this._handleCardClick(this._title, this._image);
     })
   }
+// функция установки лайка на кнопке и изменения счетчика лайков  
   updateLikes(likedCard) {
     this._likeButton.classList.toggle('element__heart-button_active')
     this._likes = likedCard.likes
