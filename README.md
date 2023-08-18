@@ -1,6 +1,6 @@
 # PROJECT MESTO JAVASCRIPT
 
-## Description
+## Description & Functionality
 * The project provides social network one's user page functionality. 
   You can: 
   * update current user’s info and avatar via modals with custom validation.
@@ -34,7 +34,7 @@
 
 # ПРОЕКТ MESTO JAVASCRIPT
 
-## Описание
+## Описание и функциональность
 * Проект представляет собой страницу пользователя в социальной сети.
   Вы можете:
   * обновлять информацию о пользователе и аватар с использованием модальных окон с валидированными формаими.
