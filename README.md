@@ -11,11 +11,11 @@
 * Project tested and works on WebKit and Chromium based desktop/mobile browsers.
 
 ## Stack & Tools
-* JavaScript, HTML, CSS, REST API & NPM. JavaScript, Flex & Grid technologies have been applied. Built on Nested-BEM, Mobile-first and Adaptive-design principles. GitHub has been used for version control.
+* JavaScript, HTML, CSS, REST API, WebPack. JavaScript, Flex & Grid technologies have been applied. Built on Nested-BEM, Mobile-first and Adaptive-design principles. GitHub has been used for version control.
 
 ## My goal
 * to improve JavaScript skills, e.g. creating Classes, Forms, Validation, etc.
-* to improve NPM & project assembly skills
+* to improve WebPack & project assembly skills
 * to improve REST API & server connection skills.
 
 
@@ -44,11 +44,11 @@
 * Проект протестирован и работает браузерах на основе WebKit and Chromium.
 
 ## Стек и инструменты
-* JavaScript, HTML, CSS, REST API, JWT, Nested-BEM.
+* JavaScript, HTML, CSS, REST API, JWT, Nested-BEM, WebPack.
 
 ## Цель
 * прокачать навыки по работе с JavaScript, в том числе создание классов, форм, валидации и др.
-* прокачать навыки по работе с NPM и сборке проектов.
+* прокачать навыки по работе с WebPack и сборке проектов.
 * прокачать навыки по работе с REST API и работе с сервером.
 
 
